@@ -15,7 +15,7 @@ module.exports = {
         white: "#fff",
         red: "#ff1930",
         gray: { "100": "#212121", "200": "rgba(0, 0, 0, 0)" },
-        gainsboro: "#d8dadc",
+        gainsboro: { "100": "#ddd", "200": "#d8dadc" },
         crimson: "#e64646",
         dimgray: "#666",
         black: "#000",

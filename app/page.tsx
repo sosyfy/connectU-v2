@@ -1,13 +1,12 @@
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import RightSide from '@/components/core/right-side'
+import TimelineContainer from '@/components/core/timeline-container'
+
 
 export default function Home() {
   return (
-    <main className="">
-        <p>
-          Get started by editing&nbsp;
-          <code className="">app/page.tsx</code>
-        </p>
-    </main>
+    <>
+        <TimelineContainer />
+        <RightSide /> 
+    </>
   )
 }

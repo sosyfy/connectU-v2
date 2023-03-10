@@ -1,5 +1,9 @@
 import './globals.css'
 import type { Metadata } from "next"
+import Provider from './Provider'
+import Header from '@/components/core/header'
+import LeftSide from '@/components/core/left-side'
+
 
 export const metadata: Metadata = {
   title: 'ConnectU',
@@ -9,11 +13,22 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Provider>
+          <section className="relative w-full bg-whitesmoke">
+            <Header />
+            <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
+              <LeftSide />
+               {children}
+            </main>
+          </section>
+        </Provider>
+
+      </body>
     </html>
   )
 }
