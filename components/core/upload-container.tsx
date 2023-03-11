@@ -4,7 +4,7 @@ const WriteNewPost: NextPage = () => {
   return (
     <div className="sticky top-[4.5rem] overflow-hidden text-[1rem] text-dimgray font-roboto rounded-2xl bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.14),_0px_0px_1px_rgba(0,_0,_0,_0.12)] w-full">
       <div className="relative w-full pt-4">
-        <textarea
+        <input
           placeholder="Write something"
           className="w-full pl-16 border-0 outline-none focus:border-0 focus:outline-none"
         />

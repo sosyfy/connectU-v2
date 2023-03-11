@@ -2,8 +2,7 @@
 {/* eslint-disable @next/next/no-img-element */}
 import { signIn } from 'next-auth/react';
 import React, { useState } from 'react'
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+
 
 export default function Login(){
     const [ email,setEmail] = useState("");
@@ -18,10 +17,7 @@ export default function Login(){
             redirect: true ,
             callbackUrl: "/"
           } )
-          const session = await getServerSession(authOptions)
-
-          console.log(session);
-          
+       
     }
 
     return (
@@ -90,7 +86,7 @@ export default function Login(){
 
                     </span>
                     <span className="ml-3 text-black font-roboto">
-                        <a href="#" className="font-semibold decoration-transparent text-blue-500">Sign up</a>
+                        <a href="#" className="font-semibold text-blue-500 decoration-transparent">Sign up</a>
                     </span>
                 </p>
             </div>

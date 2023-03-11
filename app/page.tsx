@@ -3,6 +3,8 @@ import TimelineContainer from '@/components/core/timeline-container'
 
 
 export default function Home() {
+  
+  
   return (
     <>
         <TimelineContainer />

@@ -13,7 +13,6 @@ export const authOptions:NextAuthOptions = {
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         const { email, password } = credentials as any
-        
         const res = await fetch("http://localhost:8000/v1/auth/login", {
             method: "POST",
             headers: {

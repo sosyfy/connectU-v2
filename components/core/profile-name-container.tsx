@@ -15,7 +15,7 @@ const ProfileNameContainer = (): JSX.Element => {
           <p className="font-medium">
             Dariush Habibpour
           </p>
-          <p className="text-[0.73rem] font-light">
+          <p className="text-[0.73rem] mt-2 font-light">
             Product Designer
           </p>
         </div>
