@@ -1,6 +1,21 @@
 {/* eslint-disable @next/next/no-img-element */ }
 
-const SuggestedContainer = (): JSX.Element => {
+import useAxios from './../../lib/hooks/useAxios';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+
+const SuggestedContainer = async () => {
+
+  // const request = await useAxios()
+  
+  // const response = await request({
+  //   method: "get",
+  //   path: "/user/find/suggested-connections"
+  // })
+  
+  // console.log(response);
+  
+  
   return (
     <div className="text-left overflow-hidden  text-[1rem] w-full text-dimgray font-roboto rounded-2xl bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.14),_0px_0px_1px_rgba(0,_0,_0,_0.12)]">
       <div className="px-5 py-6 font-medium">

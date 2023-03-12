@@ -1,10 +1,7 @@
-import './globals.css'
-import type { Metadata } from "next"
-import Provider from './Provider'
 
 
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'ConnectU',
   description: "Built for the people by the people",
 }
@@ -17,10 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider>
-           {children}
-        </Provider>
-
+        {children}
       </body>
     </html>
   )

@@ -3,7 +3,6 @@ import MenuContainer from "./menu-container";
 import ProfileNameContainer from './profile-name-container';
 import SuggestedContainer from "./suggested-users";
 
-
 const LeftSide: NextPage = () => {
   return (
     <div className="lg:col-span-3 md:col-span-4 hidden md:block  relative text-[1rem] text-dimgray font-roboto">
@@ -12,6 +11,7 @@ const LeftSide: NextPage = () => {
           <ProfileNameContainer />
           <MenuContainer />
           <div className="hidden md:block lg:hidden">
+          {/* @ts-expect-error Async Server Component */}
             <SuggestedContainer />
           </div>
         </div>

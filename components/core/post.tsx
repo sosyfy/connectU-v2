@@ -26,15 +26,9 @@ const Post: NextPage<PostType> = ({
 }) => {
     const request = useAxios()
     
-    async function get(){
-        let response = await request({
-            path: "/user/64089ed7decece0d72d1778c",
-            method: "get"
-          })
-       console.log(response);
-    } 
+  
     useEffect(() => {
-         get()  
+        
     }, [])
     
       

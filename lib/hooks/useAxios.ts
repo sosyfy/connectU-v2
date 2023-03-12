@@ -1,6 +1,5 @@
-
 import axios ,{AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders, AxiosResponse } from "axios";
-import { useSession } from "next-auth/react";
+
 
 const baseUrl: string  = "http://localhost:8000/v1";
 
@@ -10,17 +9,14 @@ type AxiosProps = {
     pathData?: any
 }
 
-export default function useAxios() {
 
- let config: AxiosRequestConfig ;
+export default async function useAxios(token?: string) {
 
-  const { data, status } : { data: any , status : string } = useSession();
+let config: AxiosRequestConfig ;
 
-  const token = data?.user.token.token
- 
-  var headers: RawAxiosRequestHeaders;
+let headers: RawAxiosRequestHeaders;
 
-  if (token && status === "authenticated") {
+  if (token) {
     headers = {
       Authorization: "Bearer " + token,
       "Content-Type": "application/json",

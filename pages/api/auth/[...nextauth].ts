@@ -38,6 +38,7 @@ export const authOptions:NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({token, user}){
       return {...user, ...token}
@@ -49,6 +50,7 @@ export const authOptions:NextAuthOptions = {
   },
   pages:{
     signIn: "/login",
+    signOut: "/login"
   }
 }
 
