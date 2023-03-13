@@ -1,48 +1,69 @@
 "use client"
 import type { NextPage } from "next";
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { getSession ,useSession, signIn, signOut } from "next-auth/react";
+import { format , TDate } from "timeago.js";
 import useAxios from './../../lib/hooks/useAxios';
-import { useEffect } from "react";
-
+import useClientToken from './../../lib/hooks/useClientToken';
+import { useState } from 'react';
 
 type PostType = {
     profilePicture?: string;
     name?: string;
-    jobTitle?: string;
+    date: TDate 
     postText?: string;
     image?: string;
     liked?: boolean;
+    likes?: string[] | [];
+    comments?: string[] | [];
+    key: any, 
+    id: Post
 };
 
 const Post: NextPage<PostType> = ({
     profilePicture,
     name,
-    jobTitle,
+    date,
     postText,
     image,
     liked,
+    likes,
+    comments,
+    key,
+    id
 }) => {
-    const request = useAxios()
-    
-  
-    useEffect(() => {
+
+    let token = useClientToken()
+    const request = useAxios(token)
+    const [isLiked, setIsLiked] = useState(likes?.some( like => like == id.user.toString()))
+    const [likesCount, setLikesCount] = useState(likes?.length)
+    const user = id.user
+     console.log(isLiked);
+     
+
+    const handleLike =( id: string )=>{
         
-    }, [])
-    
-      
-      
+        if (token !== undefined) {  
+            request({
+                method: "put",
+                path: `/post/toggle-like/${id}`
+            }).then( res => {
+                setIsLiked(!isLiked)
+                setLikesCount(res.data?.post?.likes.length)
+            })
+        }
+    }
+        
     return (
         <div
+            key={key}
             className="relative text-left text-[1rem] text-dimgray font-roboto rounded-2xl bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.14),_0px_0px_1px_rgba(0,_0,_0,_0.12)]"
         >
             <div className="pt-3">
                 <div className="flex items-center justify-between px-3 pb-5">
+                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        className="w-[2.5rem] h-[2.5rem]"
+                        className="w-[2.5rem] h-[2.5rem] rounded-full"
                         alt=""
-                        src={profilePicture}
+                        src={`http://localhost:8000/images/${profilePicture}`}
                     />
                     <div
                         className="ml-2 basis-4/5"
@@ -51,13 +72,13 @@ const Post: NextPage<PostType> = ({
                             {name}
                         </p>
                         <p className="text-sm font-light">
-                            {jobTitle}
+                            { format(date)}
                         </p>
                     </div>
                     <svg
                         width="24"
                         height="24"
-                        className="w-[1.5rem] h-[1.5rem]"
+                        className="w-[1.5rem] h-[1.5rem] hidden"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -71,21 +92,24 @@ const Post: NextPage<PostType> = ({
                     {postText}
                 </div>
                 <div>
+                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         className="w-full"
                         alt=""
-                        src={image}
+                        // crossorigin="anonymous"
+                        src={`http://localhost:8000/images/${image}`}
                     />
                 </div>
                 <div
                     className="text-center text-[0.69rem] text-dimgray flex items-center px-4 pt-4 pb-2"
                 >
                     <div className="flex items-center gap-2">
-                        {liked ?
+                        { isLiked ?
                             (
                                 <svg
                                     width="24"
                                     height="24"
+                                    onClick={()=> handleLike(id._id)}
                                     className="w-[1.5rem] h-[1.5rem] overflow-hidden"
                                     viewBox="0 0 24 24"
                                     fill="none"
@@ -96,6 +120,7 @@ const Post: NextPage<PostType> = ({
                                 <svg
                                     width="24"
                                     height="24"
+                                    onClick={()=> handleLike(id._id)}
                                     className="w-[1.5rem] h-[1.5rem] overflow-hidden"
                                     viewBox="0 0 24 24"
                                     fill="none"
@@ -105,10 +130,10 @@ const Post: NextPage<PostType> = ({
                             )
                         }
                         <p className="text-dimgray">
-                            99
+                            {likesCount}
                         </p>
                     </div>
-                    <div className="flex items-center gap-2 ml-8">
+                    <div className="flex items-center hidden gap-2 ml-8">
                         <div>
                             <svg
                                 width="24"
@@ -122,12 +147,12 @@ const Post: NextPage<PostType> = ({
 
                         </div>
                         <p className=" text-dimgray">
-                            99
+                            {comments?.length}
                         </p>
                     </div>
 
 
-                    <div className="ml-auto">
+                    <div className="hidden ml-auto">
                         <svg
                             width="24"
                             height="24"

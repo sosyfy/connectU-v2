@@ -10,7 +10,7 @@ type AxiosProps = {
 }
 
 
-export default async function useAxios(token?: string) {
+export default function useAxios(token?: string) {
 
 let config: AxiosRequestConfig ;
 
@@ -34,7 +34,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 
  
- function request({ method ,pathData ,path }: AxiosProps){
+function request({ method ,pathData ,path }: AxiosProps){
 
     if (pathData ){
         config ={

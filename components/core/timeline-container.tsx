@@ -1,32 +1,59 @@
-import type { NextPage } from "next";
+"use client"
+
+import useAxios from "@/lib/hooks/useAxios";
+import useClientToken from "@/lib/hooks/useClientToken";
+import { useEffect, useState } from "react";
+
 import MobileNav from "./mobile-nav";
 import Post from "./post";
 import WriteNewPost from "./upload-container";
 
 
-const TimelineContainer: NextPage = () => {
+const TimelineContainer = () => {
+
+  const [posts, setPosts] = useState<Post[]>([])
+  let token = useClientToken()
+  const request = useAxios(token)
+
+  
+  useEffect(() => {
+    if(token !== undefined){
+      getPosts()
+    }
+
+  }, [token])
+  
+  const getPosts = ()=>{
+    request({
+      method: "get",
+      path: "/post/timeline/posts"
+    }).then((response) => {
+      setPosts(response.data)
+    }).catch((error)=>{
+       console.log(error);
+    })
+  }
+  
   return (
     <div className="lg:col-span-6 md:col-span-8 col-span-12 relative text-[1rem] text-dimgray font-roboto">
       <div className="sticky top-[6.5rem]">
-        <WriteNewPost />
+        <WriteNewPost getPosts={getPosts} />
         <div className="grid gap-3 pt-6">
+          { posts.map( (post: Post) => (
           <Post
-            profilePicture="../profile-picture.svg"
-            name="Elon Musk"
-            jobTitle="CEO of SpaceX"
-            postText={`You have to match the convenience of the gasoline car in order for people to buy an electric car." "In order to have clean air in cities, you have to go electric." "You should not show somebody something very cool and then not do it. At Tesla, any prototype that is shown to customers, the production must be better.`}
-            image="../image1@2x.png"
-            liked={true}
+            key={post._id}
+            id={post}
+            profilePicture={post.userInfo.photo}
+            name={post.userInfo.firstName + " " + post.userInfo.lastName }
+            date={post.createdAt}
+            postText={post.title}
+            image={post.photo}
+            likes={post.likes}
+            liked={post.liked}
+            comments={post.comments}
           />
+          ))}
 
-          <Post
-            profilePicture="../profile-picture1.svg"
-            name="Sundar Pichai"
-            jobTitle="CEO of Google"
-            postText={`As a leader, It is important to not just see your own success, but focus on the success of others.`}
-            image="../image2@2x.png"
-            liked={false}
-          />
         </div>
          <MobileNav />
       </div>

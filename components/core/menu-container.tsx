@@ -11,7 +11,7 @@ const MenuContainer = () : JSX.Element=> {
             alt=""
             src="../play.svg"
           />
-          <div className="">Learning</div>
+          <div className="">General Forum</div>
         </div>
         <div className="flex items-center gap-x-4">
           <img
@@ -19,7 +19,7 @@ const MenuContainer = () : JSX.Element=> {
             alt=""
             src="../chart.svg"
           />
-          <div className="">Insights</div>
+          <div className="">Resources</div>
         </div>
         <div className="flex items-center gap-x-4">
           <img
@@ -28,7 +28,7 @@ const MenuContainer = () : JSX.Element=> {
             src="../add-user.svg"
           />
           <div className="">
-            Find colleagues
+            Colleagues
           </div>
         </div>
         <div className="flex items-center gap-x-4">
@@ -45,7 +45,7 @@ const MenuContainer = () : JSX.Element=> {
             alt=""
             src="../game.svg"
           />
-          <div className="">Gaming</div>
+          <div className="">Jobs</div>
 
         </div>
         <div className="flex items-center gap-x-4">
@@ -54,7 +54,7 @@ const MenuContainer = () : JSX.Element=> {
             alt=""
             src="../setting.svg"
           />
-          <div className="">Settings</div>
+          <div className="">Profile</div>
         </div>
       </div>
     </div>

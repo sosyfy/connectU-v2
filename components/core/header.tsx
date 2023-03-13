@@ -1,4 +1,8 @@
+"use client"
 import type { NextPage } from "next";
+import { signOut } from 'next-auth/react';
+
+
 
 const Header: NextPage = () => {
     return (
@@ -35,6 +39,7 @@ const Header: NextPage = () => {
                     <svg
                         width="32"
                         height="32"
+                        onClick={()=> signOut()}
                         className="w-[2rem] h-[2rem]"
                         viewBox="0 0 32 32"
                         fill="none"

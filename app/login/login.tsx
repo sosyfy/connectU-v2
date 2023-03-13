@@ -1,6 +1,7 @@
 "use client"
 {/* eslint-disable @next/next/no-img-element */}
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import React, { useState } from 'react'
 
 
@@ -86,7 +87,7 @@ export default function Login(){
 
                     </span>
                     <span className="ml-3 text-black font-roboto">
-                        <a href="#" className="font-semibold text-blue-500 decoration-transparent">Sign up</a>
+                        <Link href="/register" className="font-semibold text-blue-500 decoration-transparent">Sign up</Link>
                     </span>
                 </p>
             </div>
