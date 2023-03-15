@@ -1,3 +1,4 @@
+import Header from "@/components/core/header"
 
 export const metadata = {
     title: 'ConnectU',
@@ -12,6 +13,7 @@ export const metadata = {
     return (
       <html lang="en">
         <body>
+        <Header />
           {children}
         </body>
       </html>

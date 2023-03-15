@@ -62,6 +62,7 @@ const SuggestedContainer = () => {
           <div
             key={con._id}
             className="flex justify-between items-center h-[2.5rem] pb-3">
+            
             <img
               className="h-[2.5rem] w-[2.5rem] rounded-full"
               alt=""
@@ -75,11 +76,7 @@ const SuggestedContainer = () => {
                 {con.userInfo.lastName}
               </div>
             </div>
-            <button
-              onClick={() => handleConnect(con._id)}
-              className={`cursor-pointer transition-colors duration-300 text-[0.8rem] p-0  ${ user?.connections.some((conn) => conn._id === con._id) ? "bg-white text-deepskyblue" :  "bg-deepskyblue text-white"  } h-[2rem] font-medium font-roboto  text-center rounded-lg px-3 border-[1px] border-solid border-deepskyblue`}>
-              Connect
-            </button>
+            
           </div>
         ))}
 

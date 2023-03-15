@@ -1,10 +1,9 @@
 "use client"
-import type { NextPage } from "next";
 import { signOut } from 'next-auth/react';
 
 
 
-const Header: NextPage = () => {
+const Header = () => {
     return (
         <div className="fixed z-10 top-0 left-0 w-full  bg-white text-[2.25rem] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.14),_0px_0px_3px_rgba(0,_0,_0,_0.12)] font-roboto">
             <div className="flex items-center justify-center max-w-6xl px-5 py-4 mx-auto md:justify-between md:px-8 lg:px-0">
