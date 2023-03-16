@@ -81,7 +81,7 @@ updatedAt:  string,
 __v: number
 }
 
-type Comment = {
+type CommentType = {
   _id:  string,
   post:  string,
   user:  string,

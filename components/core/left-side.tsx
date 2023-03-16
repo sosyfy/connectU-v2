@@ -11,6 +11,7 @@ const LeftSide: NextPage = () => {
         <div className="grid gap-8">
            {/* @ts-expect-error Async Server Component */}
           <ProfileNameContainer />
+           {/* @ts-expect-error Async Server Component */}
           <MenuContainer />
           <div className="hidden md:block lg:hidden">
             <SuggestedContainer />
