@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable react-hooks/exhaustive-deps */
 import CommentCard from '@/components/core/comment-card';
 import ForumPost from '@/components/core/forumn-post'
 import useAxios from '@/lib/hooks/useAxios';

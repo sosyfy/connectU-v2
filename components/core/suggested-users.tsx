@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable react-hooks/exhaustive-deps */
 {/* eslint-disable @next/next/no-img-element */ }
 
 import { useSession } from "next-auth/react";

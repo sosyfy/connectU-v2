@@ -9,7 +9,6 @@ const nextConfig = {
     NEXTAUTH_URL: "http://localhost:3000"
   },
   eslint: {
-   
     ignoreDuringBuilds: true,
   },
 }

@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react-hooks/exhaustive-deps */
 import useAxios from "@/lib/hooks/useAxios";
 import useClientToken from "@/lib/hooks/useClientToken";
 import Link from "next/link";
