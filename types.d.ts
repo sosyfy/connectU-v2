@@ -52,3 +52,54 @@ type User = {
   jobTitle?: string,
   location: string
 }
+
+
+type ForumPost = {
+ _id: string,
+title: string,
+creator: string,
+userInfo: {
+  _id: string,
+  email: string,
+  firstName: string,
+  adminNo: string,
+  lastName:string,
+  emailVerified: boolean,
+  photo: string,
+  createdAt: string,
+  updatedAt: string,
+  __v: number
+},
+description:  string,
+likes: string[] | [],
+comments: Comment[] | string[],
+category:  string,
+views: number,
+visitedBy: string[] | [],
+createdAt: string,
+updatedAt:  string,
+__v: number
+}
+
+type Comment = {
+  _id:  string,
+  post:  string,
+  user:  string,
+  userInfo: {
+    _id: string,
+    email: string,
+    firstName: string,
+    adminNo: string,
+    lastName:string,
+    emailVerified: boolean,
+    photo: string,
+    createdAt: string,
+    updatedAt: string,
+    __v: number
+  },
+  commentText: string,
+  likes: string[] | [],
+  createdAt:  string,
+  updatedAt:  string,
+  __v: number
+}

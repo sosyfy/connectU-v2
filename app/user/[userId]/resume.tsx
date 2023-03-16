@@ -28,10 +28,10 @@ const Resume = ({ userId }: any): JSX.Element => {
 
     return (
 
-        <div className="relative lg:col-span-9 md:col-span-8  w-full text-[1.25rem] text-dimgray font-roboto">
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+        <div className="relative lg:col-span-9 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
+            <div className="grid items-center grid-cols-1 gap-12 md:grid-cols-2 ">
                 {/* profile  */}
-                <div>
+                <div className="mx-auto">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         className="w-[13.5rem] h-[13.5rem] object-cover rounded-full"
@@ -40,36 +40,37 @@ const Resume = ({ userId }: any): JSX.Element => {
                     />
                 </div>
                 {/* info */}
-                <div>
-                    <div className="text-[3rem] leading-[3.25rem] font-medium text-deepskyblue">
+                <div className="mx-auto">
+                    <div className="text-[3rem] leading-[3.25rem] font-medium text-deepskyblue md:text-start text-center">
                         {userData?.userInfo.firstName + " " + userData?.userInfo.lastName}
                     </div>
-                    <div className="text-[1.75rem] leading-[2.25rem] font-light inline-block w-[19rem]">
+                    <div className="text-[1.75rem] leading-[2.25rem] font-light  md:text-start text-center">
                         {userData?.jobTitle}
                     </div>
 
-                    <div className="leading-[2rem] font-light text-[1.2rem] mt-2 flex items-center gap-2">
-                        <svg
+                    <div className="flex justify-center mx-auto md:justify-start">
+                        <div className="leading-[2rem]  font-light text-[1.2rem] mt-2 flex items-center gap-2">
+                            <svg
 
-                            width="22"
-                            height="28"
-                            className="h-4"
-                            viewBox="0 0 22 28"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M11 1C16.3848 1 21 5.61522 21 11C21 16.3848 11 27 11 27C11 27 1 16.3848 1 11C1 5.61522 5.61522 1 11 1Z"
-                                stroke="#464646"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg> {userData?.location}
+                                width="22"
+                                height="28"
+                                className="h-4"
+                                viewBox="0 0 22 28"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M11 1C16.3848 1 21 5.61522 21 11C21 16.3848 11 27 11 27C11 27 1 16.3848 1 11C1 5.61522 5.61522 1 11 1Z"
+                                    stroke="#464646"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg> {userData?.location}
+                        </div>
                     </div>
-
                     <div className="flex w-full gap-4 mt-3">
                         <button
                             className={`cursor-pointer w-full transition-colors duration-300 text-[0.8rem] p-0 bg-deepskyblue text-white h-[2rem] font-medium font-roboto  text-center rounded-lg px-3 border-[1px] border-solid border-deepskyblue`}>
@@ -103,18 +104,22 @@ const Resume = ({ userId }: any): JSX.Element => {
                         Experience
                     </div>
                     {userData?.experience.map((exp) => (
-                        <div className="grid" key={exp._Id}>
-                            <div className="leading-[2rem] font-semibold">
-                                {exp.company}
-                            </div>
-                            <div className="leading-[2rem] font-medium inline-block text-[1.3rem]">
-                                {exp.position}
-                            </div>
-                            <div className="leading-[2rem] font-light text-left text-base">
-                                {exp.startDate} - {exp.endDate}
-                            </div>
-                            <div className="leading-[1.7rem] font-light pt-2 mt-3 text-[1.2rem]">
-                                {exp.type}
+                        <div className="flex items-start mb-4" key={exp._Id}>
+                            <div className="w-2 h-2 mt-3 mr-3 rounded-lg bg-dimgray" />
+                            <div className="grid mt-0">
+                                <div className="leading-[2rem] font-light text-left text-base">
+                                    {exp.startDate} - {exp.endDate}
+                                </div>
+                                <div className="leading-[2rem] font-semibold capitalize inline-block text-[1.3rem]">
+                                    {exp.position}
+                                </div>
+                                <div className="leading-[2rem] font-normal text-[1.1rem]">
+                                    {exp.company}
+                                </div>
+
+                                <div className="leading-[1.7rem] font-light pt-2 mt-3 text-[1.2rem]">
+                                    {exp.type}
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -129,11 +134,11 @@ const Resume = ({ userId }: any): JSX.Element => {
                         contact
                     </div>
 
-                    <div className="leading-[2rem]">
+                    <div className="leading-[2rem] text-[1.1rem]">
                         <span className="font-medium">Email</span>
                         <span className="font-light"> - {userData?.email}</span>
-                    </div>
-                    <div className="leading-[2rem]">
+                    </div> 
+                    <div className="leading-[2rem] text-[1.1rem]">
                         <span className="font-medium">Admission Number</span>
                         <span className="font-light"> - {userData?.userInfo.adminNo}</span>
                     </div>
@@ -172,8 +177,8 @@ const Resume = ({ userId }: any): JSX.Element => {
                     </div>
                     <div className="grid gap-2">
                         {userData?.skills.map((skill) => (
-                            <div className="leading-[2rem] font-light" key={skill}>
-                               {skill}
+                            <div className="leading-[2rem] font-light flex items-center" key={skill}>
+                                <div className="w-2 h-2 mr-3 bg-black rounded-lg" />  {skill}
                             </div>
                         ))}
                     </div>
