@@ -72,7 +72,7 @@ function ForumView({ forumId }: Props) {
             {/* header */}
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
                 <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-[1.5rem] inline-block text-dimgray">
+                <b className="relative text-center text-[1.5rem] inline-block text-dimgray">
                     Lets Connect
                 </b>
             </div>

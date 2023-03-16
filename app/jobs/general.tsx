@@ -1,5 +1,4 @@
 "use client";
-import ForumPost from "@/components/core/forumn-post";
 import useAxios from "@/lib/hooks/useAxios";
 import useClientToken from "@/lib/hooks/useClientToken";
 import Link from "next/link";
@@ -7,6 +6,8 @@ import { useEffect, useState, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { format, TDate } from "timeago.js";
+import parse from 'html-react-parser';
 
 function General() {
     const [filterOpen, setFilterOpen] = useState(false);
@@ -21,7 +22,7 @@ function General() {
         if (token !== undefined) {
             request({
                 method: "get",
-                path: `/forum/general`,
+                path: `/forum/job`,
             })
                 .then((response) => {
                     setData(response.data);
@@ -37,7 +38,7 @@ function General() {
 
         request({
             method: "get",
-            path: `/forum/filter/general/${sortBy}`,
+            path: `/forum/filter/job/${sortBy}`,
         })
             .then((response) => {
                 setData(response.data);
@@ -53,7 +54,7 @@ function General() {
         request({
             method: "post",
             path: `/forum`,
-            pathData: JSON.stringify({ title, description, category: "general" })
+            pathData: JSON.stringify({ title, description, category: "job" })
         })
             .then((response) => {
                 setData(response.data);
@@ -72,14 +73,14 @@ function General() {
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
             {/* header */}
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-[1.5rem] inline-block text-dimgray">
-                    Lets Connect
+                <h2 className="relative font-semibold">Jobs</h2>
+                <b className="relative text-center text-[1.5rem] inline-block text-center text-dimgray">
+                    Career building and sharing opportunities
                 </b>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-6">
                 <div>
-                    <Popover className="relative">
+                <Popover className="relative">
                         {({ open, close }) => (
                             <>
                                 <Popover.Button
@@ -87,7 +88,7 @@ function General() {
                                       ${open ? "" : "text-opacity-90"}
                                     group inline-flex items-center rounded-md bg-deepskyblue px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                                 >
-                                    <span>Add New</span>
+                                    <span>Add New Resource</span>
                                 </Popover.Button>
                                 <Transition
                                     as={Fragment}
@@ -98,13 +99,13 @@ function General() {
                                     leaveFrom="opacity-100 translate-y-0"
                                     leaveTo="opacity-0 translate-y-1"
                                 >
-                                    <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 rounded-lg shadow-lg bg-gainsboro-200 sm:px-0 lg:max-w-3xl">
+                                    <Popover.Panel className="absolute z-10 w-screen max-w-sm px-2 mt-3 rounded-lg shadow-lg md:px-4 bg-gainsboro-200 sm:px-0 lg:max-w-3xl">
                                         <div
-                                            className="px-5 py-6 bg-gainsboro-200"
+                                            className="px-2 py-6 bg-gainsboro-200"
 
                                         >
-                                            <div className="flex flex-col items-start justify-center gap-3 mb-6">
-                                                <label className="relative leading-[125%] font-roboto font-semibold">
+                                            <div className="flex flex-col items-start justify-center gap-3 mb-4">
+                                                <label className="relative leading-[125%] text-[0.9rem] font-roboto font-semibold">
                                                     Title <strong className="font-bold text-red">*</strong>
                                                 </label>
                                                 <input
@@ -113,11 +114,11 @@ function General() {
                                                     onChange={(e) => setTitle(e.target.value)}
                                                     required
                                                     placeholder="Title ... "
-                                                    className="rounded-3xs bg-whitesmoke font-roboto font-medium box-border w-full flex flex-row py-[1.13rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+                                                    className="rounded-3xs text-[0.9rem] bg-whitesmoke font-roboto font-medium box-border w-full flex flex-row md:py-[1.13rem] py-2 px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
                                                 />
                                             </div>
-                                            <p className="relative leading-[125%] font-roboto font-semibold pb-2 mb-3">
-                                                Content <strong className="font-bold text-red">*</strong>
+                                            <p className="relative leading-[125%] font-roboto font-semibold mb-3 text-[0.9rem]">
+                                                Content <strong className="font-bold text-red text-[0.9rem]">*</strong>
                                             </p>
                                             <div className="overflow-hidden">
                                                 <ReactQuill
@@ -151,7 +152,7 @@ function General() {
 
                                             <button
                                                 type="button"
-                                                className="flex items-center whitespace-nowrap rounded-lg mt-5 bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
+                                                className="flex items-center whitespace-nowrap rounded-lg mt-5 bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
                                                 onClick={(e) => handleSubmit(e, close)}
                                             >
                                                 create post
@@ -164,9 +165,9 @@ function General() {
                     </Popover>
                 </div>
                 {/* filter */}
-                <div className="flex justify-end mb-5 filter">
+                <div className="flex justify-end filter">
                     <div className="flex items-center gap-4">
-                        <p className="font-medium text-[1rem]">Filter By</p>
+                        <p className="font-medium text-[1rem] md:block hidden">Filter By</p>
                         <div className="relative">
                             <button
                                 className="flex items-center whitespace-nowrap rounded bg-deepskyblue/10 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
@@ -223,12 +224,57 @@ function General() {
                 </div>
             </div>
             {data?.map((post) => (
-                <Link href={"/general-forum/" + post._id} key={post._id}>
+                <Link href={"/jobs/" + post._id} key={post._id}>
                     <ForumPost postData={post} />
                 </Link>
             ))}
         </div>
     );
 }
+
+
+
+interface ForumPostProps {
+    postData: ForumPost,
+    trimPost?: boolean
+}
+
+function ForumPost({ postData, trimPost }: ForumPostProps) {
+
+    return (
+        <div className="rounded-lg bg-white w-full overflow-hidden flex flex-col p-[1.25rem] mb-8 box-border items-start justify-start gap-[1.25rem]">
+            <h1 className="relative text-[1.2rem] font-semibold text-dimgray">
+                {postData?.title}
+            </h1>
+            <div className="self-stretch border-y py-3 border-dimgray/10 flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
+                    alt=""
+                    src={`http://localhost:8000/images/${postData?.userInfo.photo}`}
+                />
+                <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
+                    <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>
+                    <div className="relative font-medium text-[0.88rem] text-base-mid-gray">
+                        {postData?.userInfo.email}
+                    </div>
+                    <div className="md:hidden mt-2 flex flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+                    <div className="relative">{format(postData.createdAt)}</div>
+                </div>
+                </div>
+                <div className="md:flex hidden flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+                    <div className="relative">{format(postData.createdAt)}</div>
+                </div>
+            </div>
+            <div className="relative self-stretch font-normal text-[1rem] text-base-mid-gray">
+                <p className="m-0">
+                    {!trimPost ? parse(postData.description.slice(0, 100) + "...") : parse(postData.description)}
+                </p>
+            </div>
+        </div>
+    )
+}
+
+
 
 export default General;

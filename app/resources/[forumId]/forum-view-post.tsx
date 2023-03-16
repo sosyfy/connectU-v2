@@ -42,8 +42,6 @@ function ForumView({ forumId }: Props) {
                 console.log(error);
             })
 
-
-
         }
     }, [token])
 
@@ -71,9 +69,9 @@ function ForumView({ forumId }: Props) {
             >back</Link>
             {/* header */}
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-[1.5rem] inline-block text-dimgray">
-                    Lets Connect
+                <h2 className="relative font-semibold">Resources</h2>
+                <b className="relative  text-center text-[1.5rem] inline-block text-dimgray">
+                  viewing the resource . Hope this  benefits you 
                 </b>
             </div>
             {!loading &&

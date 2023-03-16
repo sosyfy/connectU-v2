@@ -15,7 +15,7 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
             <h1 className="relative text-[1.2rem] font-semibold text-dimgray">
                 {postData?.title}
             </h1>
-            <div className="self-stretch flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
+            <div className="self-stretch border-y py-3 border-dimgray/10 flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
@@ -27,8 +27,12 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                     <div className="relative font-medium text-[0.88rem] text-base-mid-gray">
                         {postData?.userInfo.email}
                     </div>
+                    <div className="flex md:hidden mt-2 flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+                    <div className="relative">{format(postData.createdAt)}</div>
                 </div>
-                <div className="flex flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+         
+                </div>
+                <div className="md:flex hidden flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
                     <div className="relative">{format(postData.createdAt)}</div>
                 </div>
             </div>
@@ -39,11 +43,11 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
             </div>
             <div className="self-stretch flex flex-row items-center justify-start gap-[0.5rem] text-base-dark-gray">
 
-                <svg
-                    className="relative w-[2rem] h-[2rem] shrink-0  text-dimgray"
-                    width="32" height="32" viewBox="0 0 32 32" fill="#666" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 18.6667H18.6667V16H8V18.6667ZM8 14.6667H24V12H8V14.6667ZM8 10.6667H24V8.00002H8V10.6667ZM2.66666 29.3334V5.33335C2.66666 4.60002 2.928 3.97202 3.45066 3.44935C3.97244 2.92758 4.6 2.66669 5.33333 2.66669H26.6667C27.4 2.66669 28.028 2.92758 28.5507 3.44935C29.0724 3.97202 29.3333 4.60002 29.3333 5.33335V21.3334C29.3333 22.0667 29.0724 22.6947 28.5507 23.2174C28.028 23.7391 27.4 24 26.6667 24H8L2.66666 29.3334Z" fill="#34364A" />
-                </svg>
+               
+                <svg              className="relative w-[2rem] h-[2rem] shrink-0  text-dimgray" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+</svg>
+
                 <div className="relative text-base">{postData?.comments.length} Comments</div>
             </div>
         </div>

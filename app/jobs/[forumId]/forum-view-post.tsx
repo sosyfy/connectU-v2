@@ -1,10 +1,11 @@
 "use client"
-import CommentCard from '@/components/core/comment-card';
-import ForumPost from '@/components/core/forumn-post'
 import useAxios from '@/lib/hooks/useAxios';
 import useClientToken from '@/lib/hooks/useClientToken';
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
+import { format, TDate } from "timeago.js";
+import parse from 'html-react-parser';
+
 interface Props {
     forumId: string
 }
@@ -66,48 +67,67 @@ function ForumView({ forumId }: Props) {
     }
     return (
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            <Link href={"/general-forum"}
+            <Link href={"/jobs"}
                 className={"flex items-center whitespace-nowrap rounded bg-deepskyblue/10 w-fit px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"}
             >back</Link>
             {/* header */}
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-[1.5rem] inline-block text-dimgray">
-                    Lets Connect
+                <h2 className="relative font-semibold">Jobs</h2>
+                <b className="relative text-center text-[1.5rem] inline-block text-dimgray">
+                    Job Listing
                 </b>
             </div>
             {!loading &&
                 <>
                     <ForumPost postData={data} trimPost={true} />
-
-                    <form onSubmit={e => handleSubmit(e)}>
-                        <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                        <div className="relative">
-                            <input
-                                type="search"
-                                id="default-search"
-                                value={comment}
-                                onChange={(e: any) => setComment(e.target.value)}
-                                className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Post a comment"
-                                required />
-                            <button
-                                type="submit"
-                                className="text-white absolute right-2.5 bottom-2.5 bg-deepskyblue hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
-                                post
-                            </button>
-                        </div>
-                    </form>
-
-                    <div className='grid gap-5 mt-5'>
-                        { comments?.map(comment => (
-                            <CommentCard commentData={comment} key={comment._id} />
-                        ))}
-                    </div>
                 </>
             }
         </div>
     )
 }
+
+
+
+interface ForumPostProps {
+    postData: ForumPost,
+    trimPost?: boolean
+}
+
+function ForumPost({ postData, trimPost }: ForumPostProps) {
+
+    return (
+        <div className="rounded-lg bg-white w-full overflow-hidden flex flex-col p-[1.25rem] mb-8 box-border items-start justify-start gap-[1.25rem]">
+            <h1 className="relative text-[1.2rem] font-semibold text-dimgray">
+                {postData?.title}
+            </h1>
+            <div className="self-stretch border-y py-3 border-dimgray/10 flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
+                    alt=""
+                    src={`http://localhost:8000/images/${postData?.userInfo.photo}`}
+                />
+                <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
+                    <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>
+                    <div className="relative font-medium text-[0.88rem] text-base-mid-gray">
+                        {postData?.userInfo.email}
+                    </div>
+                    <div className="flex md:hidden mt-1 flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+                    <div className="relative">{format(postData.createdAt)}</div>
+                </div>
+                </div>
+                <div className="md:flex hidden flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+                    <div className="relative">{format(postData.createdAt)}</div>
+                </div>
+            </div>
+            <div className="relative self-stretch font-normal text-[1rem] text-base-mid-gray">
+                <p className="m-0">
+                    {!trimPost ? parse(postData.description.slice(0, 100) + "...") : parse(postData.description)}
+                </p>
+            </div>
+        </div>
+    )
+}
+
 
 export default ForumView

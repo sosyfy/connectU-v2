@@ -24,7 +24,6 @@ const Post: NextPage<PostType> = ({
     date,
     postText,
     image,
-    liked,
     likes,
     comments,
     key,
@@ -35,10 +34,8 @@ const Post: NextPage<PostType> = ({
     const request = useAxios(token)
     const [isLiked, setIsLiked] = useState(likes?.some( like => like == id.user.toString()))
     const [likesCount, setLikesCount] = useState(likes?.length)
-    const user = id.user
-     console.log(isLiked);
+  
      
-
     const handleLike =( id: string )=>{
         
         if (token !== undefined) {  
@@ -51,6 +48,8 @@ const Post: NextPage<PostType> = ({
             })
         }
     }
+
+   
         
     return (
         <div

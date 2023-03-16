@@ -9,7 +9,7 @@ type Params = {
 }
 
 
-export default function page({ params: { forumId } }: Params) {
+export default function Page({ params: { forumId } }: Params) {
     console.log(forumId);
     
   return (

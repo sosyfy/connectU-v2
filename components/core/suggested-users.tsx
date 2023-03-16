@@ -11,11 +11,10 @@ import useClientToken from './../../lib/hooks/useClientToken';
 
 const SuggestedContainer = () => {
   const { data }: any = useSession();
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<User | any >()
   const [suggestedUsers, setSuggestedUsers] = useState<User[]>([])
   let token = useClientToken()
   const request = useAxios(token)
-
 
   useEffect(() => {
     if (token !== undefined) {
@@ -27,21 +26,25 @@ const SuggestedContainer = () => {
       }).catch((error) => {
         console.log(error);
       })
-
       setUser(data?.user.user)
     }
 
 
   }, [token])
 
+  useEffect(() => {
+    if (data !== undefined) {
+      setUser(data?.user?.user)
+    }
+  }, [data])
+
   const handleConnect = (id: string) => {
 
-    // let isConnected = user.connections.some(con => con === id)
     if (token !== undefined) {
       request({
         method: "post",
         path: "/user/toggle-connection",
-        pathData: JSON.stringify({ userId: user?._id , connectionId: id })
+        pathData: JSON.stringify({ userId: user?._id, connectionId: id })
       }).then((response) => {
         setUser(response.data);
         setSuggestedUsers(suggestedUsers);
@@ -62,7 +65,7 @@ const SuggestedContainer = () => {
           <div
             key={con._id}
             className="flex justify-between items-center h-[2.5rem] pb-3">
-            
+
             <img
               className="h-[2.5rem] w-[2.5rem] rounded-full"
               alt=""
@@ -76,7 +79,11 @@ const SuggestedContainer = () => {
                 {con.userInfo.lastName}
               </div>
             </div>
-            
+            <button
+              onClick={() => handleConnect(con._id)}
+              className={`px-2 py-2 text-[1rem]  rounded-lg ${! user.connections.some((user: User) => user._id == con._id) ? "text-white bg-deepskyblue" : "text-deepskyblue border border-deepskyblue bg-transparent"}`}>
+              {user.connections.some((user: User) => user._id == con._id) ? "Remove" : "Connect"}
+            </button>
           </div>
         ))}
 
