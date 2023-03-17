@@ -18,6 +18,9 @@ export default function Login(){
             redirect: true ,
             callbackUrl: "/"
           } )
+
+          console.log(results);
+          
        
     }
 
