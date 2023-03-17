@@ -1,37 +1,27 @@
 "use client";
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import ForumPost from "@/components/core/forumn-post";
 import useAxios from "@/lib/hooks/useAxios";
 import useClientToken from "@/lib/hooks/useClientToken";
 import Link from "next/link";
-import { useEffect, useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function General() {
+type GeneralProps ={
+    posts: ForumPost[],
+    token: string | any 
+}
+
+function General( { posts , token }: GeneralProps ) {
     const [filterOpen, setFilterOpen] = useState(false);
-    const [data, setData] = useState<ForumPost[]>();
+    const [data, setData] = useState<ForumPost[]>(posts);
     const [title, setTitle] = useState<string>();
     const [description, setDescription] = useState<string | any>();
 
-    let token = useClientToken();
     const request = useAxios(token);
-
-    useEffect(() => {
-        if (token !== undefined) {
-            request({
-                method: "get",
-                path: `/forum/general`,
-            })
-                .then((response) => {
-                    setData(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [token]);
 
     const handleSort = (sortBy: string) => {
         setFilterOpen(false);
@@ -223,7 +213,7 @@ function General() {
                     </div>
                 </div>
             </div>
-            {data?.map((post) => (
+            {data?.map(( post: ForumPost) => (
                 <Link href={"/general-forum/" + post._id} key={post._id}>
                     <ForumPost postData={post} />
                 </Link>

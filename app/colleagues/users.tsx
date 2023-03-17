@@ -9,38 +9,15 @@ import useClientToken from '@/lib/hooks/useClientToken';
 import ConnectionCard from '@/components/core/connection-card';
 import { useSession } from 'next-auth/react';
 
-export default function Users() {
-    const [users , setUsers] = useState<User[] | Promise<User[]> | any >([]);
-    const [loggedInUser , setLoggedInUser] = useState<User | Promise<User> | any >([]);
-    const {data } : any  = useSession()
+type UserProps ={
+    userData: User[] | Promise<User[]> | any,
+    user:  User | Promise<User> | any
+}
 
-   
+export default function Users({ userData , user }: UserProps ) {
+    const [users , setUsers] = useState<User[] | Promise<User[]> | any >(userData);
+    const [loggedInUser , setLoggedInUser] = useState<User | Promise<User> | any >(user);
     
-    let token = useClientToken();
-    const request = useAxios(token);
-
-    useEffect(()=>{
-        if( token !== undefined ){
-            request({
-                method: "get",
-                path: `/user/find/all`,
-            }).then((response) => {
-                    setUsers(response.data);
-                }).catch((error) => {
-                    console.log(error);
-          
-                });
-        }
-       
-    },[])
-
-    useEffect(()=>{
-        if (data !== undefined) {
-             setLoggedInUser( data?.user?.user)
-        }   
-    },[data])
-
-   
  
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

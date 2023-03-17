@@ -1,11 +1,18 @@
+'use client';
+
 import Link from "next/link";
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 {/* eslint-disable @next/next/no-img-element */ }
 
-const MenuContainer = async ()=> {
-  const session: any = await getServerSession(authOptions)
-  let user:User = session.user.user
+const MenuContainer = ()=> {
+  const { data }: any = useSession();
+  let [user, setUser] = useState<User | any>();
+  useEffect(() => {
+      if (data?.user.user !== undefined) {
+          setUser(data?.user.user);
+      }
+  }, [data]);
 
 
   return (
@@ -54,7 +61,7 @@ const MenuContainer = async ()=> {
           </div>
         </Link>
         
-        <Link href={`/user/${user._id}`} className="flex items-center gap-x-4">
+        <Link href={`/user/${user?._id}`} className="flex items-center gap-x-4">
           <img
             className="w-[1.5rem] h-[1.5rem]"
             alt=""

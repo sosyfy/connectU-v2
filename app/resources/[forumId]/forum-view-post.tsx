@@ -3,49 +3,21 @@
 import CommentCard from '@/components/core/comment-card';
 import ForumPost from '@/components/core/forumn-post'
 import useAxios from '@/lib/hooks/useAxios';
-import useClientToken from '@/lib/hooks/useClientToken';
 import Link from 'next/link';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 interface Props {
-    forumId: string
+    forumId: string | null,
+    post: ForumPost,
+    token: string,
+    postComments: CommentType[]
 }
 
-function ForumView({ forumId }: Props) {
-    const [data, setData] = useState<ForumPost | any>()
-    const [comments, setComments] = useState<CommentType[]>()
+function ForumView({ forumId, post, token , postComments }: Props) {
+    const [data, setData] = useState<ForumPost | any>(post)
+    const [comments, setComments] = useState<CommentType[]>(postComments)
     const [comment, setComment] = useState<any>('')
-    const [loading, setLoading] = useState(true)
-
-    let token = useClientToken()
+    
     const request = useAxios(token)
-
-
-    useEffect(() => {
-        if (token !== undefined) {
-            request({
-                method: "get",
-                path: `/forum/single/${forumId}`
-            }).then((response) => {
-                let forum = response.data
-                request({
-                    method: "get",
-                    path: `/comment/${forumId}`
-                }).then((response) => {
-                    setComments(response.data)
-                    forum.comments = response.data
-                    setData(forum)
-                    setLoading(false)
-                }).catch((error) => {
-                    console.log(error);
-                })
-
-            }).catch((error) => {
-                console.log(error);
-            })
-
-        }
-    }, [token])
-
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -53,11 +25,11 @@ function ForumView({ forumId }: Props) {
         request({
             method: "post",
             path: `/comment/forum/${forumId}`,
-            pathData : JSON.stringify({ commentText: comment })
+            pathData: JSON.stringify({ commentText: comment })
         }).then((response) => {
             setComments(response.data)
-            setData({ ...data , comments: response.data})
-            setComment('');      
+            setData({ ...data, comments: response.data })
+            setComment('');
         }).catch((error) => {
             setComment('');
             console.log(error);
@@ -72,39 +44,37 @@ function ForumView({ forumId }: Props) {
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
                 <h2 className="relative font-semibold">Resources</h2>
                 <b className="relative  text-center text-[1.5rem] inline-block text-dimgray">
-                  viewing the resource . Hope this  benefits you 
+                    viewing the resource . Hope this  benefits you
                 </b>
             </div>
-            {!loading &&
-                <>
-                    <ForumPost postData={data} trimPost={true} />
 
-                    <form onSubmit={e => handleSubmit(e)}>
-                        <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                        <div className="relative">
-                            <input
-                                type="search"
-                                id="default-search"
-                                value={comment}
-                                onChange={(e: any) => setComment(e.target.value)}
-                                className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Post a comment"
-                                required />
-                            <button
-                                type="submit"
-                                className="text-white absolute right-2.5 bottom-2.5 bg-deepskyblue hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
-                                post
-                            </button>
-                        </div>
-                    </form>
+            <ForumPost postData={data} trimPost={true} />
 
-                    <div className='grid gap-5 mt-5'>
-                        { comments?.map(comment => (
-                            <CommentCard commentData={comment} key={comment._id} />
-                        ))}
-                    </div>
-                </>
-            }
+            <form onSubmit={e => handleSubmit(e)}>
+                <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                <div className="relative">
+                    <input
+                        type="search"
+                        id="default-search"
+                        value={comment}
+                        onChange={(e: any) => setComment(e.target.value)}
+                        className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Post a comment"
+                        required />
+                    <button
+                        type="submit"
+                        className="text-white absolute right-2.5 bottom-2.5 bg-deepskyblue hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+                        post
+                    </button>
+                </div>
+            </form>
+
+            <div className='grid gap-5 mt-5'>
+                {comments?.map(comment => (
+                    <CommentCard commentData={comment} key={comment._id} />
+                ))}
+            </div>
+
         </div>
     )
 }

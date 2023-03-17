@@ -8,46 +8,20 @@ import { format, TDate } from "timeago.js";
 import parse from 'html-react-parser';
 
 interface Props {
-    forumId: string
+    forumId: string | null,
+    post: ForumPost,
+    token: string,
+    postComments: CommentType[]
 }
 
-function ForumView({ forumId }: Props) {
-    const [data, setData] = useState<ForumPost | any>()
-    const [comments, setComments] = useState<CommentType[]>()
+
+function ForumView({ forumId, post, token, postComments }: Props) {
+    const [data, setData] = useState<ForumPost | any>(post)
+    const [comments, setComments] = useState<CommentType[]>(postComments)
     const [comment, setComment] = useState<any>('')
-    const [loading, setLoading] = useState(true)
 
-    let token = useClientToken()
+
     const request = useAxios(token)
-
-
-    useEffect(() => {
-        if (token !== undefined) {
-            request({
-                method: "get",
-                path: `/forum/single/${forumId}`
-            }).then((response) => {
-                let forum = response.data
-                request({
-                    method: "get",
-                    path: `/comment/${forumId}`
-                }).then((response) => {
-                    setComments(response.data)
-                    forum.comments = response.data
-                    setData(forum)
-                    setLoading(false)
-                }).catch((error) => {
-                    console.log(error);
-                })
-
-            }).catch((error) => {
-                console.log(error);
-            })
-
-
-
-        }
-    }, [token])
 
 
     const handleSubmit = (e: any) => {
@@ -56,11 +30,11 @@ function ForumView({ forumId }: Props) {
         request({
             method: "post",
             path: `/comment/forum/${forumId}`,
-            pathData : JSON.stringify({ commentText: comment })
+            pathData: JSON.stringify({ commentText: comment })
         }).then((response) => {
             setComments(response.data)
-            setData({ ...data , comments: response.data})
-            setComment('');      
+            setData({ ...data, comments: response.data })
+            setComment('');
         }).catch((error) => {
             setComment('');
             console.log(error);
@@ -78,11 +52,9 @@ function ForumView({ forumId }: Props) {
                     Job Listing
                 </b>
             </div>
-            {!loading &&
-                <>
-                    <ForumPost postData={data} trimPost={true} />
-                </>
-            }
+
+            <ForumPost postData={data} trimPost={true} />
+
         </div>
     )
 }
@@ -114,8 +86,8 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                         {postData?.userInfo.email}
                     </div>
                     <div className="flex md:hidden mt-1 flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
-                    <div className="relative">{format(postData.createdAt)}</div>
-                </div>
+                        <div className="relative">{format(postData.createdAt)}</div>
+                    </div>
                 </div>
                 <div className="md:flex hidden flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
                     <div className="relative">{format(postData.createdAt)}</div>

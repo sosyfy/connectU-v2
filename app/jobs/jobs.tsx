@@ -1,39 +1,28 @@
 "use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import useAxios from "@/lib/hooks/useAxios";
-import useClientToken from "@/lib/hooks/useClientToken";
 import Link from "next/link";
-import { useEffect, useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { format, TDate } from "timeago.js";
+import { format } from "timeago.js";
 import parse from 'html-react-parser';
 
-function General() {
+type GeneralProps ={
+    posts: ForumPost[],
+    token: string | any 
+}
+
+function General({ posts , token }: GeneralProps) {
     const [filterOpen, setFilterOpen] = useState(false);
-    const [data, setData] = useState<ForumPost[]>();
+    const [data, setData] = useState<ForumPost[]>(posts);
     const [title, setTitle] = useState<string>();
     const [description, setDescription] = useState<string | any>();
 
-    let token = useClientToken();
     const request = useAxios(token);
 
-    useEffect(() => {
-        if (token !== undefined) {
-            request({
-                method: "get",
-                path: `/forum/job`,
-            })
-                .then((response) => {
-                    setData(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [token]);
-
+   
     const handleSort = (sortBy: string) => {
         setFilterOpen(false);
 
@@ -75,7 +64,7 @@ function General() {
             {/* header */}
             <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
                 <h2 className="relative font-semibold">Jobs</h2>
-                <b className="relative text-center text-[1.5rem] inline-block text-center text-dimgray">
+                <b className="relative text-center text-[1.5rem] inline-block text-dimgray">
                     Career building and sharing opportunities
                 </b>
             </div>

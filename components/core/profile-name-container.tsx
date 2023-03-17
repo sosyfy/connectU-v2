@@ -1,12 +1,21 @@
+'use client';
+
 {/* eslint-disable @next/next/no-img-element */ }
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 
 
-const ProfileNameContainer = async ()=> {
-  const session: any = await getServerSession(authOptions)
-  let user:User = session.user.user
+const ProfileNameContainer = ()=> {
+  const { data }: any = useSession();
+  let [user, setUser] = useState<User>();
+  useEffect(() => {
+      if (data?.user.user !== undefined) {
+          setUser(data?.user.user);
+      }
+  }, [data]);
   
   
 
@@ -17,15 +26,15 @@ const ProfileNameContainer = async ()=> {
           <img
             className="w-[3rem] h-[3rem] rounded-full object-cover"
             alt=""
-            src={`http://localhost:8000/images/${user.userInfo.photo}`}
+            src={`http://localhost:8000/images/${user?.userInfo.photo}`}
           />
         </div>
         <div className="grid">
           <p className="font-medium">
-            {user.userInfo.firstName + " " + user.userInfo.lastName}
+            {user?.userInfo.firstName + " " + user?.userInfo.lastName}
           </p>
           <p className="text-[0.73rem] mt-2 font-light">
-            {user.jobTitle}
+            {user?.jobTitle}
           </p>
         </div>
 
