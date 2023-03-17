@@ -61,7 +61,7 @@ const SuggestedContainer = () => {
       <div className="px-5 py-6 font-medium">
         People you may know:
       </div>
-      <div className="grid gap-3 px-5 pb-2">
+      <div className="grid gap-3 px-3 pb-2">
         {suggestedUsers && suggestedUsers?.map((con: User) => (
           <div
             key={con._id}
@@ -72,7 +72,7 @@ const SuggestedContainer = () => {
               alt=""
               src={`http://localhost:8000/images/${con.userInfo.photo}`}
             />
-            <div className="grid ml-3 basis-2/5">
+            <div className="grid ml-3 basis-2/5 text-[0.8rem]">
               <div className="font-medium">
                 {con.userInfo.firstName}
               </div>
@@ -82,7 +82,7 @@ const SuggestedContainer = () => {
             </div>
             <button
               onClick={() => handleConnect(con._id)}
-              className={`px-2 py-2 text-[1rem]  rounded-lg ${! user.connections.some((user: User) => user._id == con._id) ? "text-white bg-deepskyblue" : "text-deepskyblue border border-deepskyblue bg-transparent"}`}>
+              className={`px-2 py-2 text-[0.6rem]  rounded-lg ${! user.connections.some((user: User) => user._id == con._id) ? "text-white bg-deepskyblue" : "text-deepskyblue border border-deepskyblue bg-transparent"}`}>
               {user.connections.some((user: User) => user._id == con._id) ? "Remove" : "Connect"}
             </button>
           </div>

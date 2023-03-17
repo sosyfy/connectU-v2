@@ -1,6 +1,6 @@
 export default function Loading() {
     return (
-      <div className="mt-60">loading page</div>
+      <div className="flex items-center justify-center">loading page</div>
     )
   }
   
