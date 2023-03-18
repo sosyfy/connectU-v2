@@ -1,10 +1,9 @@
 "use client"
 /* eslint-disable react-hooks/exhaustive-deps */
 import useAxios from '@/lib/hooks/useAxios';
-import useClientToken from '@/lib/hooks/useClientToken';
 import Link from 'next/link';
-import { useEffect, useState } from 'react'
-import { format, TDate } from "timeago.js";
+import { useState } from 'react'
+import { format} from "timeago.js";
 import parse from 'html-react-parser';
 
 interface Props {
@@ -78,7 +77,7 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                 <img
                     className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
                     alt=""
-                    src={`http://localhost:8000/images/${postData?.userInfo.photo}`}
+                    src={postData?.userInfo.photo}
                 />
                 <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
                     <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>

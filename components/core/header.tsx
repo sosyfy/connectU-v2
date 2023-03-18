@@ -25,14 +25,16 @@ const Header = () => {
                         U
                     </b>
                 </Link>
-                <button className="hidden cursor-pointer md:flex items-center lg:flex justify-end gap-2 text-[0.69rem] text-white">
+                <button
+                    onClick={() => signOut()}
+                    className="hidden cursor-pointer md:flex items-center lg:flex justify-end gap-2 text-[0.69rem] text-white">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        onClick={() => signOut()}
+
                         className="w-[2rem] h-[2rem] text-dimgray cursor-pointer"
                     >
                         <path

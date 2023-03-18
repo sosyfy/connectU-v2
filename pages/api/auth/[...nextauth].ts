@@ -24,7 +24,7 @@ export const authOptions:NextAuthOptions = {
       async authorize(credentials, req) {
       // Add logic here to look up the user from the credentials supplied
       const { email, password } = credentials as any
-      const res = await fetch("https://4159-102-1-205-84.in.ngrok.io/v1/auth/login", {
+      const res = await fetch("https://62d9-154-152-170-92.in.ngrok.io/v1/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

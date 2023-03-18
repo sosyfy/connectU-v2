@@ -38,7 +38,7 @@ type CardProps = {
       <div className="overflow-hidden bg-white rounded-lg shadow-md">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`http://localhost:8000/images/${cardData.userInfo.photo}`}
+          src={cardData.userInfo.photo}
           alt="Profile Picture"
           className="mx-auto mt-4 rounded-full w-[6rem] h-[6rem]"
         />

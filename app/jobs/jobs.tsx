@@ -241,7 +241,7 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                 <img
                     className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
                     alt=""
-                    src={`http://localhost:8000/images/${postData?.userInfo.photo}`}
+                    src={postData?.userInfo.photo}
                 />
                 <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
                     <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>

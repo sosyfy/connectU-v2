@@ -1,6 +1,6 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
-import { format, TDate } from "timeago.js";
+import { format} from "timeago.js";
 
 interface UserCardProp {
   commentData: CommentType
@@ -14,7 +14,7 @@ const CommentCard = ({ commentData }: UserCardProp) => {
         <img
           className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover"
           alt=""
-          src={`http://localhost:8000/images/${commentData.userInfo.photo}`}
+          src={commentData.userInfo.photo}
         />
         <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
           <div className="relative font-semibold">{commentData.userInfo.firstName} {commentData.userInfo.lastName}</div>

@@ -1,8 +1,6 @@
 'use client';
 
 {/* eslint-disable @next/next/no-img-element */ }
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -26,7 +24,7 @@ const ProfileNameContainer = ()=> {
           <img
             className="w-[3rem] h-[3rem] rounded-full object-cover"
             alt=""
-            src={`http://localhost:8000/images/${user?.userInfo.photo}`}
+            src={user?.userInfo.photo}
           />
         </div>
         <div className="grid">

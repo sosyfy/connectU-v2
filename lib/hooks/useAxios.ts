@@ -1,7 +1,9 @@
 import axios ,{AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders, AxiosResponse } from "axios";
 
 
-const baseUrl: string  = "http://localhost:8000/v1";
+const baseUrl: string | undefined  = process.env.BACKEND_LOCAL_URL 
+
+console.log(process.env.BACKEND_LOCAL_URL);
 
 type AxiosProps = {
     method: string,
@@ -20,10 +22,12 @@ let headers: RawAxiosRequestHeaders;
     headers = {
       Authorization: "Bearer " + token,
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true
     };
   } else {
     headers = {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true
     };
   }
  

@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useAxios from "@/lib/hooks/useAxios";
 import useClientToken from "@/lib/hooks/useClientToken";
-// import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 
@@ -37,7 +36,7 @@ const Resume = ({ userId }: any): JSX.Element => {
                     <img
                         className="w-[13.5rem] h-[13.5rem] object-cover rounded-full"
                         alt="img"
-                        src={`http://localhost:8000/images/${userData?.userInfo?.photo}`}
+                        src={userData?.userInfo?.photo}
                     />
                 </div>
                 {/* info */}

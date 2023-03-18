@@ -4,6 +4,7 @@
 
 import { useSession } from "next-auth/react";
 
+
 import { useEffect, useState } from 'react';
 import useAxios from './../../lib/hooks/useAxios';
 import useClientToken from './../../lib/hooks/useClientToken';
@@ -70,7 +71,7 @@ const SuggestedContainer = () => {
             <img
               className="h-[2.5rem] w-[2.5rem] rounded-full"
               alt=""
-              src={`http://localhost:8000/images/${con.userInfo.photo}`}
+              src={con.userInfo.photo}
             />
             <div className="grid ml-3 basis-2/5 text-[0.8rem]">
               <div className="font-medium">

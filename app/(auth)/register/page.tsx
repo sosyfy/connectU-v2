@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 const SignUp: NextPage = () => {
     return (
-        <div className="relative h-screen min-h-full overflow-hidden bg-deepskyblue">
+        <div className="relative h-screen min-h-full bg-deepskyblue">
             <div className="flex items-center justify-center h-screen md:px-12">
                 <div className="px-5 md:px-8 bg-white w-full sm:w-[24rem] md:h-fit md:mx-auto h-screen md:rounded-xl">
-                    <div className="relative py-16 md:py-8 text-left text-[0.88rem] text-black font-roboto">
+                    <div className="relative py-6 text-left text-[0.88rem] text-black font-roboto">
                         <svg
                             className="absolute md:top-[1.94rem] top-10 right-2 w-[2.88rem] h-[2.75rem]"
                             width="46"

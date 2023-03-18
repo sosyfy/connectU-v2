@@ -10,7 +10,7 @@ type PostType = {
     name?: string;
     date: TDate 
     postText?: string;
-    image?: string;
+    image?: string | any;
     liked?: boolean;
     likes?: string[] | [];
     comments?: string[] | [];
@@ -62,7 +62,7 @@ const Post: NextPage<PostType> = ({
                     <img
                         className="w-[2.5rem] h-[2.5rem] rounded-full"
                         alt=""
-                        src={`http://localhost:8000/images/${profilePicture}`}
+                        src={profilePicture}
                     />
                     <div
                         className="ml-2 basis-4/5"
@@ -94,9 +94,8 @@ const Post: NextPage<PostType> = ({
                      {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         className="w-full"
-                        alt=""
-                        // crossorigin="anonymous"
-                        src={`http://localhost:8000/images/${image}`}
+                        alt="post image"
+                        src={image}
                     />
                 </div>
                 <div

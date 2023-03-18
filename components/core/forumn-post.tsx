@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { format, TDate } from "timeago.js";
+import { format } from "timeago.js";
 import parse from 'html-react-parser';
 
 interface ForumPostProps {
@@ -20,7 +20,7 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                 <img
                     className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
                     alt=""
-                    src={`http://localhost:8000/images/${postData?.userInfo.photo}`}
+                    src={postData?.userInfo.photo}
                 />
                 <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
                     <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>
@@ -28,9 +28,9 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                         {postData?.userInfo.email}
                     </div>
                     <div className="flex md:hidden mt-2 flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
-                    <div className="relative">{format(postData.createdAt)}</div>
-                </div>
-         
+                        <div className="relative">{format(postData.createdAt)}</div>
+                    </div>
+
                 </div>
                 <div className="md:flex hidden flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
                     <div className="relative">{format(postData.createdAt)}</div>
@@ -43,10 +43,10 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
             </div>
             <div className="self-stretch flex flex-row items-center justify-start gap-[0.5rem] text-base-dark-gray">
 
-               
+
                 <svg className="relative w-[2rem] h-[2rem] shrink-0  text-dimgray" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-</svg>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                </svg>
 
                 <div className="relative text-base">{postData?.comments.length} Comments</div>
             </div>
