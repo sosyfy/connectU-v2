@@ -2,6 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import CommentCard from '@/components/core/comment-card';
 import ForumPost from '@/components/core/forumn-post'
+import BackLink from '@/components/forum/back-link';
+import Header from '@/components/forum/header';
 import useAxios from '@/lib/hooks/useAxios';
 import useClientToken from '@/lib/hooks/useClientToken';
 import Link from 'next/link';
@@ -40,18 +42,11 @@ function ForumView({ forumId, post, token, postComments }: Props) {
     }
     return (
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            <Link href={"/general-forum"}
-                className={"flex items-center whitespace-nowrap rounded bg-deepskyblue/10 w-fit px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"}
-            >back</Link>
-            {/* header */}
-            <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-center text-[1.5rem] inline-block text-dimgray">
-                    Lets Connect
-                </b>
-            </div>
-
-
+            
+            <BackLink title='Back to General' href='/general-forum' />
+          
+            <Header title='General Discussion' subTitle='Engage and Lets Connect' />
+           
             <ForumPost postData={data} trimPost={true} />
 
             <form onSubmit={e => handleSubmit(e)}>

@@ -1,6 +1,8 @@
+import ForumLoadingSkeleton from "@/components/loading/forum-loading";
+
 export default function Loading() {
     return (
-      <div>loading page</div>
+     <ForumLoadingSkeleton />
     )
   }
   

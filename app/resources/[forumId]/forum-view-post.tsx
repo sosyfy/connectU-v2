@@ -2,6 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import CommentCard from '@/components/core/comment-card';
 import ForumPost from '@/components/core/forumn-post'
+import BackLink from '@/components/forum/back-link';
+import Header from '@/components/forum/header';
 import useAxios from '@/lib/hooks/useAxios';
 import Link from 'next/link';
 import { useState } from 'react'
@@ -12,11 +14,11 @@ interface Props {
     postComments: CommentType[]
 }
 
-function ForumView({ forumId, post, token , postComments }: Props) {
+function ForumView({ forumId, post, token, postComments }: Props) {
     const [data, setData] = useState<ForumPost | any>(post)
     const [comments, setComments] = useState<CommentType[]>(postComments)
     const [comment, setComment] = useState<any>('')
-    
+
     const request = useAxios(token)
 
     const handleSubmit = (e: any) => {
@@ -37,16 +39,12 @@ function ForumView({ forumId, post, token , postComments }: Props) {
     }
     return (
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            <Link href={"/resources"}
-                className={"flex items-center whitespace-nowrap rounded bg-deepskyblue/10 w-fit px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"}
-            >back</Link>
-            {/* header */}
-            <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">Resources</h2>
-                <b className="relative  text-center text-[1.5rem] inline-block text-dimgray">
-                    viewing the resource . Hope this  benefits you
-                </b>
-            </div>
+
+            <BackLink title='Back to resources' href='/resources' />
+
+            <Header title='Resource' subTitle='Viewing a resource . Hope this  benefits you' />
+
+
 
             <ForumPost postData={data} trimPost={true} />
 

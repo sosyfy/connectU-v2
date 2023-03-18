@@ -1,5 +1,8 @@
-export default function Loading() {
+import ColleaguesSkeleton from "@/components/loading/colleagues-loader";
+
+
+export default function loading() {
   return (
-    <div>loading page</div>
+    <ColleaguesSkeleton />
   )
 }

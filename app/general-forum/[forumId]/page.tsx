@@ -30,14 +30,11 @@ export default async function Page({ params: { forumId } }: Params) {
 
 
   return (
-    <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] bg-whitesmoke text-dimgray font-roboto pb-5 px-5 md:px-8 lg:px-0">
-      <LeftSide />
       <ForumView
         forumId={forumId}
         token={token}
         post={postResponse.data}
         postComments={commentsResponse.data}
       />
-    </main>
   )
 }

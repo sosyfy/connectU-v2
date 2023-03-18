@@ -1,4 +1,5 @@
 import Header from "@/components/core/header"
+import LeftSide from "@/components/core/left-side"
 
 export const metadata = {
     title: 'ConnectU',
@@ -14,7 +15,10 @@ export const metadata = {
       <html lang="en">
         <body className="bg-whitesmoke">
         <Header />
-          {children}
+        <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] bg-whitesmoke text-dimgray font-roboto pb-5 px-5 md:px-8 lg:px-0">
+         <LeftSide />
+         {children}
+    </main>
         </body>
       </html>
     )

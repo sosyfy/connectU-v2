@@ -3,6 +3,7 @@
 import useAxios from "@/lib/hooks/useAxios";
 import useClientToken from "@/lib/hooks/useClientToken";
 import { useState } from "react";
+import Link from "next/link";
 
 type CardProps = {
     cardData: User | any,
@@ -39,8 +40,8 @@ type CardProps = {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cardData.userInfo.photo}
-          alt="Profile Picture"
-          className="mx-auto mt-4 rounded-full w-[6rem] h-[6rem]"
+          alt=""
+          className="mx-auto mt-4 rounded-full w-[6rem] h-[6rem] shadow"
         />
         <div className="mt-4 text-center">
           <h2 className="text-lg font-semibold">
@@ -54,9 +55,10 @@ type CardProps = {
           className={`px-4 py-1 text-[1rem]  rounded-lg ${!connections.some( (user:User) => user._id == cardData._id ) ? "text-white bg-deepskyblue" : "text-deepskyblue border border-deepskyblue bg-transparent"}`}>
           {connections.some((user:User) => user._id == cardData._id ) ? "Remove" : "Connect"}
           </button>
-          <button className="px-4 py-1 text-white  text-[1rem] bg-gray-400 rounded-lg">
-            profile
-          </button>
+         
+          <Link href={`/user/${cardData._id}`} className="px-4 py-1 text-white  text-[1rem] bg-gray-400 rounded-lg">
+          Profile
+        </Link>
         </div>
       </div>
     );

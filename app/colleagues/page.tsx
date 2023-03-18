@@ -19,9 +19,9 @@ export default async function Page() {
    
    return (
       <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-         <Suspense fallback={<h1>loading ..</h1>}>
+         {/* <Suspense fallback={<ColleaguesSkeleton />}> */}
             <Users userData={response?.data} user={session?.user?.user}/>
-         </Suspense>
+         {/* </Suspense> */}
       </div>
    )
 }
