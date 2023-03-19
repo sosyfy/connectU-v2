@@ -17,7 +17,7 @@ export default function TopBar({
 
   return (
     <>
-      <div className="grid h-[10.5rem] w-full bg-zinc-200 drop-shadow-[0_1px_2px_rgba(0,172,255,0.2)] rounded-t-md grid-cols-12 gap-4 lg:gap-16 lg:px-16 pt-3 px-4">
+      <div className="grid h-[10.5rem] w-full bg-zinc-200 drop-shadow-[0_2px_5px_rgba(0,172,255,0.2)] rounded-t-md grid-cols-12 gap-4 lg:gap-16 lg:px-16 pt-3 px-4">
         {/* intro */}
         <div className="md:col-span-5 col-span-6 lg:col-span-4 h-[12rem] mt-2 bg-white rounded-lg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
