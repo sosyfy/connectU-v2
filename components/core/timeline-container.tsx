@@ -9,20 +9,16 @@ import MobileNav from "./mobile-nav";
 import Post from "./post";
 import WriteNewPost from "./upload-container";
 
+type TimeLineProps = {
+   initialPosts: Post[] | Promise<Post[]>,
+   token: string
+}
 
-const TimelineContainer = () => {
+const TimelineContainer = ( { initialPosts ,token }: TimeLineProps ) => {
 
-  const [posts, setPosts] = useState<Post[]>([])
-  let token = useClientToken()
+  const [posts, setPosts] = useState<Post[] | any >( initialPosts)
+
   const request = useAxios(token)
-
-  
-  useEffect(() => {
-    if(token !== undefined){
-      getPosts()
-    }
-
-  }, [token])
   
   const getPosts = ()=>{
     request({

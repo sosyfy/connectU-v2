@@ -1,21 +1,21 @@
-import RightSide from '@/components/core/right-side'
+
 import TimelineContainer from '@/components/core/timeline-container'
-import Header from '@/components/core/header'
-import LeftSide from '@/components/core/left-side'
+import useAxios from '@/lib/hooks/useAxios';
+import useServerToken from '@/lib/hooks/useServerToken';
+
 
 
 
 export default async function Home() {
+  let token = await useServerToken();
+  const request = await useAxios(token);
 
+  let response = await request({
+    method: "get",
+    path: "/post/timeline/posts"
+  })
 
   return (
-      <div className="relative w-full bg-whitesmoke">
-        <Header />
-        <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
-          <LeftSide />
-          <TimelineContainer />
-          <RightSide />
-        </main>
-      </div>
+    <TimelineContainer token={token} initialPosts={response?.data} />
   )
 }

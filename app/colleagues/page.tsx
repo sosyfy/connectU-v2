@@ -1,9 +1,6 @@
 import Users from "./users"
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import useServerToken from "@/lib/hooks/useServerToken";
 import useAxios from "@/lib/hooks/useAxios";
-import { Suspense } from "react";
 
 export default async function Page() {
 

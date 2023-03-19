@@ -1,30 +1,21 @@
 "use client"
 /* eslint-disable react-hooks/exhaustive-deps */
 import useAxios from "@/lib/hooks/useAxios";
-import useClientToken from "@/lib/hooks/useClientToken";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 
-const Resume = ({ userId }: any): JSX.Element => {
+type ResumeProps = {
+    userId : string,
+    token: string,
+    user: User
+}
+
+const Resume = ({ userId ,user , token }: ResumeProps): JSX.Element => {
     // const { data }: any = useSession();
 
-    const [userData, setUserData] = useState<User>()
-    let token = useClientToken()
-    const request = useAxios(token)
+    const [userData, setUserData] = useState<User>(user)
 
-
-    useEffect(() => {
-        if (token !== undefined) {
-            request({
-                method: "get",
-                path: `/user/${userId}`
-            }).then((response) => {
-                setUserData(response.data)
-            }).catch((error) => {
-                console.log(error);
-            })
-        }
-    }, [token])
+    // const request = useAxios(token)
 
     return (
 

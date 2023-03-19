@@ -30,7 +30,7 @@ const LeftSide = () => {
     <div className="lg:col-span-3 md:col-span-4 hidden md:block  relative text-[1rem] text-dimgray font-roboto">
       <div className="sticky md:-top-[2.5rem] lg:top-[6.5rem]">
         <div className="grid gap-8">
-          <ProfileNameContainer user={user} />
+          <ProfileNameContainer user={userState} />
           <MenuContainer user={user} />
           <div className="hidden md:block lg:hidden">
             <SuggestedContainer />
