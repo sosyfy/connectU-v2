@@ -24,7 +24,7 @@ function General( { posts , token }: GeneralProps ) {
     const [data, setData] = useState<ForumPost[]>(posts);
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string | any>('');
-
+    const [loading, setLoading] = useState<boolean>(false);
     const request = useAxios(token);
 
     const handleSort = (sortBy: string) => {
@@ -44,7 +44,7 @@ function General( { posts , token }: GeneralProps ) {
 
     const handleSubmit = (e: any, close: () => void) => {
         e.preventDefault();
-
+        setLoading(true);
         request({
             method: "post",
             path: `/forum`,
@@ -52,12 +52,14 @@ function General( { posts , token }: GeneralProps ) {
         })
             .then((response) => {
                 setData(response.data);
-                setDescription('')
+                setDescription('');
+                setLoading(false);
                 setTitle('')
                 close();
             })
             .catch((error) => {
                 console.log(error);
+                setLoading(false);
             });
 
 
@@ -73,6 +75,7 @@ function General( { posts , token }: GeneralProps ) {
                 description={description}
                 filterOpen={filterOpen}
                 setTitle={setTitle}
+                loading={loading}
                 setDescription ={setDescription}
                 handleSubmit={handleSubmit}
                 setFilterOpen={setFilterOpen}
