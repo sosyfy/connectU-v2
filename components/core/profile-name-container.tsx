@@ -1,21 +1,14 @@
 'use client';
 
 {/* eslint-disable @next/next/no-img-element */ }
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 
 
+interface Props {
+  user: User | any
+}
 
-const ProfileNameContainer = ()=> {
-  const { data }: any = useSession();
-  let [user, setUser] = useState<User>();
-  useEffect(() => {
-      if (data?.user.user !== undefined) {
-          setUser(data?.user.user);
-      }
-  }, [data]);
-  
-  
+const ProfileNameContainer = ({ user}: Props)=> {
+
 
   return (
     <div className="text-[1rem] flex text-gray-100 font-roboto rounded-2xl bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.14),_0px_0px_1px_rgba(0,_0,_0,_0.12)] w-full h-[6rem]">

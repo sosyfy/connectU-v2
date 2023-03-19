@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   env: {
-    BACKEND_LOCAL_URL :   "https://62d9-154-152-170-92.in.ngrok.io/v1"
+    BACKEND_LOCAL_URL :   "https://33ea-105-230-176-92.in.ngrok.io/v1"
   },
   // images: {
   //   remotePatterns: [
