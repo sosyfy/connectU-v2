@@ -63,13 +63,6 @@ function General( { posts , token }: GeneralProps ) {
 
     return (
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            {/* header */}
-            <div className="h-[8.75rem] shrink-0 flex flex-col items-center justify-center gap-[0.5rem] text-left text-[1.13rem] text-darkseagreen font-poppins">
-                <h2 className="relative font-semibold">General Discussion</h2>
-                <b className="relative text-[1.5rem] text-center inline-block text-dimgray">
-                    Lets Connect
-                </b>
-            </div>
             <Header title="General Discussion" subTitle="Lets Connect" />
             <Filter 
                 buttonText="Create Something" 

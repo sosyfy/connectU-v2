@@ -1,8 +1,12 @@
 
+import Header from '@/components/core/header';
+import LeftSide from '@/components/core/left-side';
+import RightSide from '@/components/core/right-side';
 import TimelineContainer from '@/components/core/timeline-container'
+import HomeLoadingSkeleton from '@/components/loading/homepage-skeleton';
 import useAxios from '@/lib/hooks/useAxios';
 import useServerToken from '@/lib/hooks/useServerToken';
-
+import { Suspense } from "react";
 
 
 
@@ -16,6 +20,17 @@ export default async function Home() {
   })
 
   return (
-    <TimelineContainer token={token} initialPosts={response?.data} />
+    <>
+     <div className="relative w-full h-screen bg-whitesmoke">
+            <Header />
+            <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
+              <LeftSide />
+               <Suspense fallback={<HomeLoadingSkeleton />}>
+               <TimelineContainer token={token} initialPosts={response?.data} />
+               </Suspense>
+              <RightSide />
+            </main>
+          </div>
+    </>
   )
 }

@@ -14,7 +14,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+      <div className="relative h-screen min-h-full overflow-hidden bg-deepskyblue">
+            <div className="flex items-center justify-center h-screen px-6 md:px-12">
+              { children }
+            </div>
+        </div>
       </body>
     </html>
   )

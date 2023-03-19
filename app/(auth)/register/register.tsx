@@ -167,7 +167,7 @@ export default function RegisterForm(): JSX.Element {
                     <input
                         value={adminNo}
                         onChange={e => setAdminNo(e.target.value)}
-                        type={"text"}
+                        type="text"
                         required
                         placeholder="CIT-223-232/2021"
                         className="rounded-3xs bg-white box-border w-full flex flex-row py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"

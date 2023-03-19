@@ -3,7 +3,7 @@ import axios ,{AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders, AxiosR
 
 const baseUrl: string | undefined  = process.env.BACKEND_LOCAL_URL 
 
-console.log(process.env.BACKEND_LOCAL_URL);
+
 
 type AxiosProps = {
     method: string,

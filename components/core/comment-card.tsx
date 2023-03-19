@@ -1,6 +1,10 @@
 "use client"
+import useAxios from "@/lib/hooks/useAxios";
+import useClientToken from "@/lib/hooks/useClientToken";
+import useUserStore from "@/lib/state/store";
+import { useState } from "react";
 /* eslint-disable @next/next/no-img-element */
-import { format} from "timeago.js";
+import { format } from "timeago.js";
 
 interface UserCardProp {
   commentData: CommentType
@@ -8,41 +12,65 @@ interface UserCardProp {
 
 const CommentCard = ({ commentData }: UserCardProp) => {
 
+  let token = useClientToken()
+  const request = useAxios(token)
+  const user = useUserStore((state) => state.user)
+
+  const [isLiked, setIsLiked] = useState(commentData?.likes.some(like => like == user?._id))
+  const [likesCount, setLikesCount] = useState(commentData?.likes.length)
+
+
+  const handleLike = (id: string) => {
+
+    if (token !== undefined) {
+      request({
+        method: "put",
+        path: `/comment/toggle-like/${id}`
+      }).then(res => {
+        setIsLiked(!isLiked) 
+        setLikesCount(res.data?.comment?.likes.length)
+      })
+    }
+  }
+
+
   return (
-    <div className="self-stretch rounded-3xs bg-base-white overflow-hidden flex flex-col bg-slate-50 p-[1.25rem] items-start justify-start gap-[1.25rem] text-left text-[1rem] text-black font-poppins">
+    <div className="self-stretch rounded-3xs bg-base-white overflow-hidden flex flex-col bg-slate-50 p-[1.25rem] items-start justify-start gap-[1.25rem] text-left text-[1rem] text-dimgray font-roboto">
       <div className="self-stretch flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
         <img
-          className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover"
+          className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
           alt=""
           src={commentData.userInfo.photo}
         />
-        <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
-          <div className="relative font-semibold">{commentData.userInfo.firstName} {commentData.userInfo.lastName}</div>
-          <div className="relative text-[0.88rem] text-base-mid-gray">
+        <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-start">
+          <h2 className="relative font-semibold text-dimgray text-[1rem]">{commentData.userInfo.firstName} {commentData.userInfo.lastName}</h2>
+          <p className="relative text-[0.88rem] text-base-mid-gray">
             {commentData.userInfo.email}
-          </div>
+          </p>
         </div>
-        <div className="flex flex-row items-center justify-start text-[1.13rem] text-base-mid-gray">
-          <div className="relative"> {format(commentData.createdAt)} </div>
+        <div className="flex flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
+          <p className="relative text-[0.8rem]"> {format(commentData.createdAt)} </p>
         </div>
       </div>
-      <div className="relative self-stretch font-medium text-base-mid-gray">
+      <h3 className="relative self-stretch font-normal text-base-mid-gray">
         {commentData.commentText}
-      </div>
+      </h3>
       <div className="flex flex-row items-start justify-start gap-[1.25rem] text-base-dark-gray">
         <div className="self-stretch flex flex-row items-center justify-start gap-[0.5rem]">
-          <svg
-            width="24"
-            height="24"
-            // onClick={() => handleLike(id._id)}
-            className="w-[1.5rem] h-[1.5rem] overflow-hidden"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.2798 2.50055C8.9098 2.51971 9.5198 2.62971 10.1108 2.83071H10.1698C10.2098 2.84971 10.2398 2.87071 10.2598 2.88971C10.4808 2.96071 10.6898 3.04071 10.8898 3.15071L11.2698 3.32071C11.4198 3.40071 11.5998 3.54971 11.6998 3.61071C11.7998 3.66971 11.9098 3.73071 11.9998 3.79971C13.1108 2.95071 14.4598 2.49071 15.8498 2.50055C16.4808 2.50055 17.1108 2.58971 17.7098 2.79071C21.4008 3.99071 22.7308 8.04071 21.6198 11.5807C20.9898 13.3897 19.9598 15.0407 18.6108 16.3897C16.6798 18.2597 14.5608 19.9197 12.2798 21.3497L12.0298 21.5007L11.7698 21.3397C9.4808 19.9197 7.3498 18.2597 5.4008 16.3797C4.0608 15.0307 3.0298 13.3897 2.3898 11.5807C1.2598 8.04071 2.5898 3.99071 6.3208 2.76971C6.6108 2.66971 6.9098 2.59971 7.2098 2.56071H7.3298C7.6108 2.51971 7.8898 2.50055 8.1698 2.50055H8.2798ZM17.1898 5.66071C16.7798 5.51971 16.3298 5.74071 16.1798 6.16071C16.0398 6.58071 16.2598 7.04071 16.6798 7.18971C17.3208 7.42971 17.7498 8.06071 17.7498 8.75971V8.79071C17.7308 9.01971 17.7998 9.24071 17.9398 9.41071C18.0798 9.58071 18.2898 9.67971 18.5098 9.70071C18.9198 9.68971 19.2698 9.36071 19.2998 8.93971V8.82071C19.3298 7.41971 18.4808 6.15071 17.1898 5.66071Z" fill="#FF1930" />
-          </svg>
-          <div className="relative">{ commentData.likes.length }</div>
-          <div className="relative">Likes</div>
+          {!isLiked ? (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 cursor-pointer" onClick={()=>handleLike(commentData._id)}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 cursor-pointer text-red" onClick={()=>handleLike(commentData._id)}>
+              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+            </svg>
+          )
+
+          }
+
+          <p className="relative">{likesCount}</p>
         </div>
       </div>
     </div>

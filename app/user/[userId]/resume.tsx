@@ -38,8 +38,12 @@ const Resume = ({ userId ,user , token }: ResumeProps): JSX.Element => {
                     <div className="text-[1.75rem] leading-[2.25rem] font-light  md:text-start text-center">
                         {userData?.jobTitle}
                     </div>
-
-                    <div className="flex justify-center mx-auto md:justify-start">
+                      
+                    <div className="text-[1.75rem] leading-[2.25rem] font-bold mt-12 text-dim-grayksss text-center animate-pulse">
+                        Coming soon ....
+                    </div>
+                    
+                    <div className="justify-center hidden mx-auto md:justify-start">
                         <div className="leading-[2rem]  font-light text-[1.2rem] mt-2 flex items-center gap-2">
                             <svg
 
@@ -62,7 +66,7 @@ const Resume = ({ userId ,user , token }: ResumeProps): JSX.Element => {
                             </svg> {userData?.location}
                         </div>
                     </div>
-                    <div className="flex w-full gap-4 mt-3">
+                    <div className="hidden w-full gap-4 mt-3">
                         <button
                             className={`cursor-pointer w-full transition-colors duration-300 text-[0.8rem] p-0 bg-deepskyblue text-white h-[2rem] font-medium font-roboto  text-center rounded-lg px-3 border-[1px] border-solid border-deepskyblue`}>
                             Connect
@@ -76,7 +80,7 @@ const Resume = ({ userId ,user , token }: ResumeProps): JSX.Element => {
             </div>
             {/* about me  */}
 
-            <div className="p-4 my-5 overflow-hidden bg-white rounded-lg shadow">
+            <div className="hidden p-4 my-5 overflow-hidden bg-white rounded-lg shadow">
                 <div className="text-[1.75rem] leading-[2.25rem] text-deepskyblue mb-4 font-semibold  border-b-4 border-deepskyblue inline-block">
                     About Me
                 </div>
@@ -86,7 +90,7 @@ const Resume = ({ userId ,user , token }: ResumeProps): JSX.Element => {
 
             </div>
 
-            <div className="gap-10 mx-auto lg:columns-2">
+            <div className="hidden gap-10 mx-auto lg:columns-2">
 
                 {/* experience  */}
 

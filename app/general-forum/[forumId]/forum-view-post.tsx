@@ -5,9 +5,8 @@ import ForumPost from '@/components/core/forumn-post'
 import BackLink from '@/components/forum/back-link';
 import Header from '@/components/forum/header';
 import useAxios from '@/lib/hooks/useAxios';
-import useClientToken from '@/lib/hooks/useClientToken';
-import Link from 'next/link';
-import { useEffect, useState } from 'react'
+
+import { useState } from 'react'
 interface Props {
     forumId: string | null,
     post: ForumPost,
@@ -50,19 +49,19 @@ function ForumView({ forumId, post, token, postComments }: Props) {
             <ForumPost postData={data} trimPost={true} />
 
             <form onSubmit={e => handleSubmit(e)}>
-                <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                <label className="mb-2 text-sm font-medium text-gray-900 sr-only">comment</label>
                 <div className="relative">
                     <input
                         type="search"
                         id="default-search"
                         value={comment}
                         onChange={(e: any) => setComment(e.target.value)}
-                        className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        className="block w-full p-4 pl-3 pr-20 text-base font-medium border border-gray-300 rounded-md text-dimgray focus:ring-deepskyblue focus:border-deepskyblue focus:outline-none"
                         placeholder="Post a comment"
                         required />
                     <button
                         type="submit"
-                        className="text-white absolute right-2.5 bottom-2.5 bg-deepskyblue hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+                        className="text-white absolute right-2.5 bottom-2 bg-deepskyblue hover:bg-blue-400 focus:outline-none focus:ring-blue-300 font-medium rounded text-[0.95rem] px-5 py-2">
                         post
                     </button>
                 </div>
