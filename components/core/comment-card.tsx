@@ -44,7 +44,7 @@ const CommentCard = ({ commentData }: UserCardProp) => {
         />
         <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-start">
           <h2 className="relative font-semibold text-dimgray text-[1rem]">{commentData.userInfo.firstName} {commentData.userInfo.lastName}</h2>
-          <p className="relative text-[0.88rem] text-base-mid-gray">
+          <p className="relative text-[0.88rem] text-base-mid-gray hidden">
             {commentData.userInfo.email}
           </p>
         </div>

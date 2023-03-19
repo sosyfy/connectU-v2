@@ -23,7 +23,7 @@ export default function JobPost({ postData, trimPost }: ForumPostProps) {
                 />
                 <div className="flex-1 h-[3.5rem] flex flex-col items-start justify-center">
                     <div className="relative font-medium">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</div>
-                    <div className="relative font-medium text-[0.88rem] text-base-mid-gray">
+                    <div className="relative font-medium hidden text-[0.88rem] text-base-mid-gray">
                         {postData?.userInfo.email}
                     </div>
                     <div className="md:hidden mt-2 flex flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">

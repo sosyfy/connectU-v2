@@ -48,7 +48,7 @@ type CardProps = {
           <h2 className="text-lg font-semibold">
             {cardData.userInfo.firstName} {cardData.userInfo.lastName}
           </h2>
-          <p className="text-dimgray text-[0.8rem]">{cardData.email}</p>
+          <p className="text-dimgray text-[0.8rem] hidden">{cardData.email}</p>
         </div>
         <div className="flex justify-around px-3 py-4">
           <button 

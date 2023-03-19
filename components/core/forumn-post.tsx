@@ -24,7 +24,7 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                 />
                 <div className="flex-1 h-[3.2rem] flex flex-col items-start justify-center">
                     <h2 className="relative font-medium text-[0.95rem]">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</h2>
-                    <p className="relative font-medium text-[0.78rem] text-base-mid-gray">
+                    <p className="relative font-medium hidden text-[0.78rem] text-base-mid-gray">
                         {postData?.userInfo.email}
                     </p>
                     <div className="flex md:hidden mt-2 flex-row items-center justify-start text-[0.88rem] text-base-mid-gray">
