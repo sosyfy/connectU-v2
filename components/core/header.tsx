@@ -32,17 +32,17 @@ const Header = () => {
     }, [data]);
 
     return (
-        <div className="fixed z-10 top-0 left-0 w-full  bg-white md:text-[2.25rem] text-[1.75rem] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.14),_0px_0px_3px_rgba(0,_0,_0,_0.12)] font-roboto">
+        <div className="fixed z-10 top-0 left-0 w-full  bg-white md:text-[2.25rem] text-[1.5rem] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.14),_0px_0px_3px_rgba(0,_0,_0,_0.12)] font-roboto">
             <div className="flex items-center justify-between max-w-6xl px-6 py-4 mx-auto md:justify-between md:px-8 lg:px-0">
-                <Link href="/" className="flex text-deepskyblue">
+                <Link href="/" className="flex items-center text-deepskyblue">
                     <b className="inline-block">Connect</b>
-                    <b className="ml-1 inline-block rounded-md bg-deepskyblue text-white text-center w-[2.5rem]">
+                    <b className="ml-1 flex justify-center items-center rounded-md bg-deepskyblue text-white text-center w-[2rem] h-[2rem]">
                         U
                     </b>
                 </Link>
                 <button
                     onClick={() => signOut()}
-                    className="hidden cursor-pointer md:flex items-center lg:flex justify-end gap-2 text-[0.69rem] text-white">
+                    className="hidden cursor-pointer md:flex items-center lg:flex justify-end gap-2 text-[0.75rem] text-white">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -58,7 +58,7 @@ const Header = () => {
                             d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
                         />
                     </svg>
-                    <p className="text-dimgray text-[.75rem]">Sign out</p>
+                    <p className="text-dimgray text-[.9rem]">Sign out</p>
                 </button>
 
                 <Popover className="relative md:hidden">
