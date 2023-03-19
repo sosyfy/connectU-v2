@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="mt-40 ml-30">F
+    <div className="grid place-content-center">
       <h2>Something went wrong!</h2>
       <pre> { error.message }</pre>
       <button
