@@ -42,7 +42,7 @@ type CardProps = {
         <img
           src={cardData.userInfo.photo}
           alt=""
-          className="mx-auto mt-4 rounded-full w-[6rem] h-[6rem] shadow"
+          className="mx-auto mt-4 rounded-full w-[6rem] h-[6rem] drop-shadow"
         />
         <div className="mt-4 text-center">
           <h2 className="text-lg font-semibold">

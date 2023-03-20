@@ -7,7 +7,7 @@ type TabsProp = {
 
 export default function Tabs({ activeTab, setActiveTab }: TabsProp) {
   return (
-    <div className="w-full pt-6 mt-6">
+    <div className="sticky z-10 w-full pt-12 top-12 bg-whitesmoke">
       <div className="flex items-center w-full text-dimgray bg-whitesmoke flex-nowrap text-[1rem] transition-all duration-200">
         <button
           onClick={() => setActiveTab(1)}

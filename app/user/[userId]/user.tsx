@@ -4,6 +4,10 @@ import Tabs from "@/components/user/tabs";
 import { useState } from "react";
 import Post from "@/components/core/post";
 import ConnectionCard from "@/components/core/connection-card";
+import Experience from "@/components/user/experience";
+import About from "@/components/user/about";
+import Education from "@/components/user/education";
+import Skills from "@/components/user/skills";
 
 
 type UserProps = {
@@ -61,7 +65,12 @@ export default function User({
 
                 {activeTab == 3 && (
                     <div className="pt-8">
-                        <p className="font-bold animate-pulse text-[1.3rem]"> Comming Soon .. </p>
+                        <div className="grid gap-6">
+                            <About />
+                            <Experience />
+                            <Education />
+                            <Skills />
+                        </div>
                     </div>
                 )}
             </div>

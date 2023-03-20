@@ -19,6 +19,7 @@ module.exports = {
         crimson: "#e64646",
         dimgray: "#666",
         black: "#000",
+        textblack: { "100": "#00000099", "200": "#000000e6" }, 
         darkseagreen: "#78c08f",
         "base-dark-gray": "#34364a",
         "base-mid-gray": "#7a757d",
