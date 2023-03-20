@@ -4,6 +4,7 @@
 
 import useUserStore from "@/lib/state/store";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 
 import { useEffect, useState } from 'react';
@@ -117,9 +118,9 @@ const SuggestedContainer = () => {
             alt=""
             src="../line1.svg"
           />
-          <button className="w-full [border:none] py-4 bg-white text-center font-medium text-[0.75rem] text-deepskyblue">
+          <Link href="/colleagues" className="w-full [border:none] py-4 bg-white text-center font-medium text-[0.75rem] text-deepskyblue">
             See All
-          </button>
+          </Link>
         </>
       )}
     </div>

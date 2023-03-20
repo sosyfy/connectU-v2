@@ -39,11 +39,11 @@ type User = {
     __v: number;
   };
   connections: User[] | [];
-  skills: any[];
+  skills: string[];
   bookmarkedPosts: string[] | [];
   email: string;
-  experience: any[];
-  education: any[];
+  experience: ExperienceData[];
+  education: EducationData[];
   preferredPositions: any[];
   createdAt: string;
   updatedAt: string;
@@ -102,3 +102,21 @@ type CommentType = {
   updatedAt: string;
   __v: number;
 };
+
+type EducationData =   {
+  schoolName: string,
+  course: string,
+  summary:  string,
+  _id: string
+}
+
+type ExperienceData =   {
+  position: string,
+  company: string,
+  summary:  string,
+  location:  string,
+  startDate:  string,
+  endDate:  string,
+  _id: string
+}
+

@@ -8,6 +8,7 @@ import Experience from "@/components/user/experience";
 import About from "@/components/user/about";
 import Education from "@/components/user/education";
 import Skills from "@/components/user/skills";
+import useUserStore from "@/lib/state/store";
 
 
 type UserProps = {
@@ -15,7 +16,8 @@ type UserProps = {
     user: User,
     connections: User[],
     connectionNo: number,
-    postNo: number
+    postNo: number,
+    token: string
 }
 
 export default function User({
@@ -23,15 +25,26 @@ export default function User({
     user,
     connections,
     connectionNo,
-    postNo
+    postNo,
+    token
 }: UserProps) {
 
     const [activeTab, setActiveTab] = useState<number>(1);
+    const loggedInUser = useUserStore(state => state.user)
 
     return (
         <div className="relative lg:col-span-9 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            <TopBar user={user} connectionNo={connectionNo} postNo={postNo} />
-            <Tabs setActiveTab={setActiveTab} activeTab={activeTab} />
+            <TopBar
+                user={user}
+                connectionNo={connectionNo}
+                postNo={postNo}
+                loggedInUser={loggedInUser}
+                token={token}
+            />
+            <Tabs
+                setActiveTab={setActiveTab}
+                activeTab={activeTab}
+            />
 
             <div className="px-4 pb-8 border-b border-l border-r rounded-b-md border-deepskyblue">
                 {activeTab == 1 && (
@@ -55,7 +68,7 @@ export default function User({
 
                 {activeTab == 2 && (
                     <div className="grid grid-cols-1 gap-4 pt-8 md:grid-cols-2 lg:grid-cols-3">
-                        {connections?.map((user: User) => (
+                        { connections?.map((user: User) => (
                             <div key={user._id}>
                                 <ConnectionCard cardData={user} />
                             </div>
@@ -66,10 +79,10 @@ export default function User({
                 {activeTab == 3 && (
                     <div className="pt-8">
                         <div className="grid gap-6">
-                            <About />
-                            <Experience />
-                            <Education />
-                            <Skills />
+                            <About user={user} loggedInUser={loggedInUser} />
+                            <Experience user={user} loggedInUser={loggedInUser} />
+                            <Education user={user} loggedInUser={loggedInUser} />
+                            <Skills user={user} loggedInUser={loggedInUser} />
                         </div>
                     </div>
                 )}

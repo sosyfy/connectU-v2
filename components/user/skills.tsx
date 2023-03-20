@@ -1,12 +1,19 @@
 "use client"
 
-export default function Skills() {
+type Props = {
+    user: User,
+    loggedInUser: User | undefined
+}
+ 
+export default function Skills({ user, loggedInUser }: Props) {
     return (
         <section className='pb-2 bg-white rounded-lg shadow border-dimgray'>
             {/* top part  */}
             <div className="p-[1.2rem] pb-0">
                 <div className="flex items-center justify-between">
                     <h2 className="flex-1 font-semibold text-textblack-100">SKills</h2>
+                   
+                    {loggedInUser?._id === user?._id && (
                     <div className="flex items-center gap-2 icons">
 
                         <button className="grid p-2 rounded-full focus:outline-none hover:bg-zinc-200 place-content-center">
@@ -20,14 +27,17 @@ export default function Skills() {
                     </svg>
                 </button>
                     </div>
+                    )}
                 </div>
             </div>
             {/* things    */}
-            <div className="grid p-[1.2rem] mt-2 relative">
+            <div className="grid p-[1.2rem] relative">
                 <div className="flex flex-wrap gap-4">
-                    <div className='bg-transparent border-2 border-black/60 shadow-inner text-black/60 px-[1.6rem] py-1 rounded-full'>
-                        Next Jj
+                    { user.skills.map((skill, index)=>(
+                    <div  key={skill + index} className='bg-transparent border-2 border-black/60 shadow-inner text-black/60 px-[1.6rem] py-1 rounded-full'>
+                       { skill }
                     </div>
+                    ))}
                 </div>
               
             </div>

@@ -2,6 +2,7 @@
 import React from 'react'
 import { format } from "timeago.js";
 import parse from 'html-react-parser';
+import Link from 'next/link';
 
 interface ForumPostProps {
     postData: ForumPost,
@@ -16,14 +17,16 @@ function ForumPost({ postData, trimPost }: ForumPostProps) {
                 {postData?.title}
             </h1>
             <div className="self-stretch border-y py-3 border-dimgray/10 flex flex-row items-start justify-start gap-[0.63rem] text-[1.25rem]">
+                <Link href={`/user/${postData.creator}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     className="relative w-[3.5rem] h-[3.5rem] shrink-0 object-cover rounded-full"
                     alt=""
                     src={postData?.userInfo.photo}
                 />
+                </Link>
                 <div className="flex-1 h-[3.2rem] flex flex-col items-start justify-center">
-                    <h2 className="relative font-medium text-[0.95rem]">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</h2>
+                    <Link  href={`/user/${postData.creator}`} className="relative font-medium text-[0.95rem]">{postData?.userInfo.firstName}  {postData?.userInfo.lastName}</Link>
                     <p className="relative font-medium hidden text-[0.78rem] text-base-mid-gray">
                         {postData?.userInfo.email}
                     </p>

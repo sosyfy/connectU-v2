@@ -4,6 +4,7 @@ import { format, TDate } from "timeago.js";
 import useAxios from './../../lib/hooks/useAxios';
 import useClientToken from './../../lib/hooks/useClientToken';
 import { useState } from 'react';
+import Link from "next/link";
 
 type PostType = {
     profilePicture?: string;
@@ -58,18 +59,20 @@ const Post: NextPage<PostType> = ({
         >
             <div className="pt-3">
                 <div className="flex items-center justify-between px-3 pb-5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        className="w-[2.5rem] h-[2.5rem] rounded-full"
-                        alt=""
-                        src={profilePicture}
-                    />
+                    <Link href={`/user/${id.user}`}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            className="w-[2.5rem] h-[2.5rem] rounded-full"
+                            alt=""
+                            src={profilePicture}
+                        />
+                    </Link>
                     <div
                         className="ml-2 basis-4/5"
-                    >
-                        <p className="font-medium font-roboto text-[1.2rem]">
+                    > 
+                        <Link href={`/user/${id.user}`} className="font-medium font-roboto text-[1.2rem]">
                             {name}
-                        </p>
+                        </Link>
                         <p className="text-sm font-light">
                             {format(date)}
                         </p>

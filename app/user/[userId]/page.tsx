@@ -30,6 +30,7 @@ export default async function Page({ params: { userId } }: Params) {
       connections={response.data?.connections}
       connectionNo={response.data?.connectionNo}
       postNo={response.data?.postNo}
+      token={token}
     />
   )
 }
