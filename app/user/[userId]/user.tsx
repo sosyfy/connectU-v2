@@ -49,7 +49,7 @@ export default function User({
             <div className="px-4 pb-8 border-b border-l border-r rounded-b-md border-deepskyblue">
                 {activeTab == 1 && (
                     <div className="grid w-full gap-3 pt-8">
-                        {posts?.map((post) => (
+                        { posts?.map((post) => (
                             <Post
                                 key={post._id}
                                 id={post}
