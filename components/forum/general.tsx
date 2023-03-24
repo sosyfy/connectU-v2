@@ -32,21 +32,26 @@ function General( {
     const [data, setData] = useState<ForumPost[]>(posts);
     const [title, setTitle] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [sortLoading, setSortLoading] = useState<boolean>(false);
     const [description, setDescription] = useState<string | any>('');
 
     const request = useAxios(token);
 
-    const handleSort = (sortBy: string) => {
-        setFilterOpen(false);
+    const handleSortPosts = (sortBy: string , close: () => void ) => {
+        setSortLoading(true)
         request({
             method: "get",
-            path: `/forum-posts/filter/general/${sortBy}`,
-        })
+            path: `/forum/forum-posts?category=${category}&${sortBy}`,
+         })
             .then((response) => {
                 setData(response.data);
+                close();
+                setSortLoading(false)
             })
             .catch((error) => {
                 console.log(error);
+                close();
+                setSortLoading(false)
             });
     };
 
@@ -83,10 +88,11 @@ function General( {
                 filterOpen={filterOpen}
                 setTitle={setTitle}
                 loading={loading}
+                sortLoading={sortLoading}
                 setDescription ={setDescription}
                 handleSubmit={handleSubmit}
                 setFilterOpen={setFilterOpen}
-                handleSort={handleSort} 
+                handleSort={handleSortPosts} 
             />
             {data?.map(( post: ForumPost) => (
                 <Link href={ backLink + post._id} key={post._id}>

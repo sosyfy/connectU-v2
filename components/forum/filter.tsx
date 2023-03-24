@@ -10,6 +10,7 @@ type Props = {
     description: string;
     filterOpen: boolean;
     loading: boolean;
+    sortLoading: boolean;
 
     setTitle: any;
     setDescription: any;
@@ -29,68 +30,51 @@ export default function Filter({
     handleSubmit,
     setFilterOpen,
     handleSort,
+    sortLoading
 }: Props) {
 
+
     const [filters, setFilters] = useState({
-        category: "",
-        hashtag: "",
         mostLikes: false,
         mostViews: false,
-        newPosts: true,
-        author: "",
+        newPosts: false,
+        recommended: true
     });
 
-    const handleInputChange = (event: any) => {
-        const target = event.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
+    const [filterName, setFilterName] = useState("recommended")
 
-        setFilters({ ...filters, [name]: value });
+    const handleInputChange = (event: any, key: string) => {
+        setFilters({
+            ...filters,
+            mostLikes: key !== "mostLikes" ? false : event.target.checked,
+            mostViews: key !== "mostViews" ? false : event.target.checked,
+            newPosts: key !== "newPosts" ? false : event.target.checked,
+            recommended: key !== "recommended" ? false : event.target.checked,
+        });
     };
 
-    const handleCreateQueryString = (event: any ) => {
+    const handleCreateQueryString = (event: any , close: () => void ) => {
         event.preventDefault();
         let queryString = '';
-
-        if (filters.category !== '') {
-            queryString += `category=${encodeURIComponent(filters.category)}&`;
-        }
-
-        if (filters.hashtag !== '') {
-            queryString += `hashtag=${encodeURIComponent(filters.hashtag)}&`;
-        }
-
-        if (filters.mostLikes) {
-            queryString += 'mostLikes=true&';
-        }
-
-        if (filters.mostViews) {
-            queryString += 'mostViews=true&';
-        }
-
-        if (!filters.newPosts) {
-            queryString += 'newPosts=false&';
-        }
-
-        if (filters.author !== '') {
-            queryString += `author=${encodeURIComponent(filters.author)}&`;
-        }
-
-        queryString = queryString.slice(0, -1); // Remove trailing "&"
-        // history.push(`/posts?${queryString}`);
-
-        setFilters({
-            category: "",
-            hashtag: "",
-            mostLikes: false,
-            mostViews: false,
-            newPosts: true,
-            author: "",
-        })
-       
-
-        handleSort(queryString)
-
+         
+        if (filters.mostLikes){
+            queryString = "sortBy=mostLiked"
+            setFilterName('Most Liked')
+            handleSort(queryString);
+        } else if (filters.mostViews){
+            queryString = "sortBy=mostViewed"
+            setFilterName('Most Viewed')
+            handleSort(queryString);
+        } else if (filters.newPosts){
+            queryString = "sortBy=newPosts";
+            setFilterName('New Posts');
+            handleSort(queryString);
+        } else {
+            queryString = ""
+            setFilterName('Recommended')
+            handleSort(queryString , close );
+        } 
+    
     };
 
 
@@ -98,11 +82,11 @@ export default function Filter({
         <div className="flex items-center justify-between mb-6">
             <div>
                 <Popover className="relative">
-                    {({ open, close }) => (
+                    {({ open, close  }) => (
                         <>
                             <Popover.Button
                                 className={`
-                          ${open ? "" : "text-opacity-90"}
+                          ${ open ? "" : "text-opacity-90"}
                         group inline-flex items-center rounded-md bg-deepskyblue px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                             >
                                 <span>{buttonText}</span>
@@ -167,11 +151,12 @@ export default function Filter({
                                         </div>
 
                                         <button
+                                            disabled={loading}
                                             type="button"
                                             className="flex items-center whitespace-nowrap rounded-lg mt-5 bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
                                             onClick={(e) => handleSubmit(e, close)}
                                         >
-                                            {loading && (
+                                            {loading ? (
                                                 <svg
                                                     aria-hidden="true"
                                                     role="status"
@@ -189,8 +174,10 @@ export default function Filter({
                                                         fill="#1C64F2"
                                                     />
                                                 </svg>
+                                            ): (
+                                                <span> create post</span>
                                             )}
-                                            create post
+                                           
                                         </button>
                                     </div>
                                 </Popover.Panel>
@@ -200,16 +187,17 @@ export default function Filter({
                 </Popover>
             </div>
             {/* filter */}
-            <div className="flex justify-end filter">
+            <Popover className="flex justify-end filter">
+            {({ open, close  }) => (
                 <div className="flex items-center gap-4 ">
                     <p className="font-medium text-[1rem] md:block hidden">Filter By</p>
                     <div className="relative">
-                        <button
+                        <Popover.Button
                             className="flex items-center whitespace-nowrap rounded bg-deepskyblue/10 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
                             type="button"
                             onClick={() => setFilterOpen(!filterOpen)}
                         >
-                            Select Filter
+                            {filterName}
                             <span className="w-2 ml-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -224,70 +212,76 @@ export default function Filter({
                                     />
                                 </svg>
                             </span>
-                        </button>
-                        <ul
-                            className={`${filterOpen ? "block" : "hidden"
-                                } absolute z-[1000] mt-4 right-0 m-0 w-[14rem] list-none overflow-hidden px-3 rounded-lg border bg-zinc-300 bg-clip-padding text-left text-base drop-shadow`}
+                        </Popover.Button>
+
+                        <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-200"
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
+                                leave="transition ease-in duration-150"
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
+                            >
+                        <Popover.Panel
+                            className={`block absolute z-[1000] mt-4 right-0 m-0 w-[14rem] list-none overflow-hidden px-3 rounded-lg border bg-gray-300 bg-clip-padding text-left text-base drop-shadow`}
                         >
                             <div className="flex flex-wrap gap-4 mt-3">
-                                <div className="flex flex-col gap-1">
-                                    <label htmlFor="hashtag">Filter by hashtag</label>
-                                    <input
-                                        id="hashtag"
-                                        type="text"
-                                        name="hashtag"
-                                        className="rounded bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.3rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200 focus:outline-none"
-                                        value={filters.hashtag}
-                                        onChange={(e) => handleInputChange(e)}
-                                    />
-                                </div>
+
                                 <div className="flex items-start gap-1">
                                     <input
                                         id="mostLikes"
                                         type="checkbox"
-                                        name="mostLikes"
+                                        name="filters"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                                         checked={filters.mostLikes}
-                                        onChange={(e) => handleInputChange(e)}
+                                        onChange={(e) => handleInputChange(e,"mostLikes")}
                                     />
-                                    <label htmlFor="mostLikes">Filter by most likes</label>
+                                    <label htmlFor="mostLikes">Filter By Most Likes</label>
                                 </div>
                                 <div className="flex items-start gap-1">
                                     <input
                                         id="mostViews"
                                         type="checkbox"
-                                        name="mostViews"
+                                        name="filters"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                                         checked={filters.mostViews}
-                                        onChange={(e) => handleInputChange(e)}
+                                        onChange={(e) => handleInputChange(e,"mostViews")}
+
                                     />
-                                    <label htmlFor="mostViews">Filter by most views</label>
+                                    <label htmlFor="mostViews">Filter By Most Views</label>
                                 </div>
                                 <div className="flex items-start gap-1">
                                     <input
                                         id="newPosts"
                                         type="checkbox"
-                                        name="newPosts"
+                                        name="filters"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                                         checked={filters.newPosts}
-                                        onChange={(e) => handleInputChange(e)}
+                                        onChange={(e) => handleInputChange(e,"newPosts")}
                                     />
-                                    <label htmlFor="newPosts">Filter by new posts</label>
+                                    <label htmlFor="newPosts">Filter By New Posts</label>
                                 </div>
-                                <div className="flex flex-col gap-1">
-                                    <label htmlFor="author">Filter by author</label>
+                                <div className="flex items-start gap-1">
                                     <input
-                                        id="author"
-                                        type="text"
-                                        name="author"
-                                        className="rounded bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.3rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200 focus:outline-none"
-                                        value={filters.author}
-                                        onChange={(e) => handleInputChange(e)}
+                                        id="newPosts"
+                                        type="checkbox"
+                                        name="filters"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                        checked={filters.recommended}
+                                        onChange={(e) => handleInputChange(e,"recommended")}
+
                                     />
+                                    <label htmlFor="newPosts">Filter By Recommended Posts</label>
                                 </div>
+
                                 <button
-                                    onChange={(e) => handleCreateQueryString(e)}
+                                    disabled={sortLoading}
+                                    onClick={(e) => handleCreateQueryString(e, close )}
                                     type="button"
                                     className="flex items-center text-center justify-center whitespace-nowrap rounded-lg mb-4 w-full bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
                                 >
-                                    {loading && (
+                                    { sortLoading ? (
                                         <svg
                                             aria-hidden="true"
                                             role="status"
@@ -305,15 +299,19 @@ export default function Filter({
                                                 fill="#1C64F2"
                                             />
                                         </svg>
+                                    ): (
+                                      <span>Apply </span> 
                                     )}
 
-                                    Apply Filters
+                                   
                                 </button>
                             </div>
-                        </ul>
+                        </Popover.Panel>
+                        </Transition>
                     </div>
                 </div>
-            </div>
+            )}
+            </Popover>
         </div>
     );
 }
