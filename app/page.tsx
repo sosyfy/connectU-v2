@@ -21,16 +21,16 @@ export default async function Home() {
 
   return (
     <>
-     <div className="relative w-full h-screen bg-whitesmoke">
-            <Header />
-            <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
-              <LeftSide />
-               <Suspense fallback={<HomeLoadingSkeleton />}>
-               <TimelineContainer token={token} initialPosts={response?.data} />
-               </Suspense>
-              <RightSide />
-            </main>
-          </div>
+      <div className="relative w-full h-screen bg-whitesmoke">
+        <Header />
+        <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
+          <LeftSide />
+          <Suspense fallback={<HomeLoadingSkeleton />}>
+            <TimelineContainer token={token} initialPosts={response?.data} />
+          </Suspense>
+          <RightSide />
+        </main>
+      </div>
     </>
   )
 }
