@@ -7,8 +7,6 @@ import General from "@/components/forum/general";
 
 export default async function Page() {
 
-  const session: any = await getServerSession(authOptions)
-
   let token = await useServerToken();
   const request = await useAxios(token);
 

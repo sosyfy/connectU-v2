@@ -118,8 +118,11 @@ const SuggestedContainer = () => {
             alt=""
             src="../line1.svg"
           />
-          <Link href="/colleagues" className="w-full [border:none] py-4 bg-white text-center font-medium text-[0.75rem] text-deepskyblue">
-            See All
+
+          <Link href="/colleagues" className="w-full">
+          <div className="w-full [border:none] py-4 bg-white text-center hover:bg-deepskyblue hover:text-white transition-colors ease font-medium text-[0.75rem] text-deepskyblue">
+             <span className="w-full"> See All</span>
+          </div>
           </Link>
         </>
       )}

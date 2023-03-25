@@ -60,15 +60,15 @@ export default function Filter({
         if (filters.mostLikes){
             queryString = "sortBy=mostLiked"
             setFilterName('Most Liked')
-            handleSort(queryString);
+            handleSort(queryString , close );
         } else if (filters.mostViews){
             queryString = "sortBy=mostViewed"
             setFilterName('Most Viewed')
-            handleSort(queryString);
+            handleSort(queryString , close );
         } else if (filters.newPosts){
             queryString = "sortBy=newPosts";
             setFilterName('New Posts');
-            handleSort(queryString);
+            handleSort(queryString , close );
         } else {
             queryString = ""
             setFilterName('Recommended')

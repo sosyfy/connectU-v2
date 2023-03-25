@@ -5,7 +5,7 @@ import Link from "next/link";
 
 interface ForumPostProps {
     postData: ForumPost,
-    trimPost?: boolean
+    trimPost?: boolean,  
 }
 
 export default function JobPost({ postData, trimPost }: ForumPostProps) {

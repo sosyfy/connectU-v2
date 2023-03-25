@@ -9,25 +9,25 @@ import "react-quill/dist/quill.snow.css";
 import Header from "@/components/forum/header";
 import Filter from "@/components/forum/filter";
 
-type GeneralProps ={
+type GeneralProps = {
     posts: ForumPost[],
     token: string | any,
     category: string,
     headerTitle: string,
     headerSubTitle: string,
     backLink: string,
-    filterButtonText: string  
+    filterButtonText: string
 }
 
-function General( { 
-    posts, 
+function General({
+    posts,
     token,
     category,
     headerTitle,
     headerSubTitle,
     backLink,
     filterButtonText
-}: GeneralProps ) {
+}: GeneralProps) {
     const [filterOpen, setFilterOpen] = useState(false);
     const [data, setData] = useState<ForumPost[]>(posts);
     const [title, setTitle] = useState<string>('');
@@ -37,12 +37,12 @@ function General( {
 
     const request = useAxios(token);
 
-    const handleSortPosts = (sortBy: string , close: () => void ) => {
+    const handleSortPosts = (sortBy: string, close: () => void) => {
         setSortLoading(true)
         request({
             method: "get",
             path: `/forum/forum-posts?category=${category}&${sortBy}`,
-         })
+        })
             .then((response) => {
                 setData(response.data);
                 close();
@@ -80,24 +80,26 @@ function General( {
 
     return (
         <div className="relative lg:col-span-8 md:col-span-8 col-span-12 w-full text-[1.25rem] text-dimgray font-roboto">
-            <Header title={headerTitle} subTitle={headerSubTitle}/>
-            <Filter 
+            <Header title={headerTitle} subTitle={headerSubTitle} />
+            <Filter
                 buttonText={filterButtonText}
-                title={title} 
+                title={title}
                 description={description}
                 filterOpen={filterOpen}
                 setTitle={setTitle}
                 loading={loading}
                 sortLoading={sortLoading}
-                setDescription ={setDescription}
+                setDescription={setDescription}
                 handleSubmit={handleSubmit}
                 setFilterOpen={setFilterOpen}
-                handleSort={handleSortPosts} 
+                handleSort={handleSortPosts}
             />
-            {data?.map(( post: ForumPost) => (
-                <Link href={ backLink + post._id} key={post._id}>
-                    <ForumPost postData={post} />
-                </Link>
+            {data?.map((post: ForumPost) => (
+                <ForumPost
+                    key={post._id}
+                    postData={post}
+                    postLink={`${backLink}${post._id}`}
+                />
             ))}
         </div>
     );

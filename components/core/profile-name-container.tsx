@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+
 {/* eslint-disable @next/next/no-img-element */ }
 
 
@@ -21,9 +23,9 @@ const ProfileNameContainer = ({ user}: Props)=> {
           />
         </div>
         <div className="grid">
-          <p className="font-medium">
+          <Link href={"/user/" + user?._id} className="font-medium cursor-pointer">
             {user?.userInfo.firstName + " " + user?.userInfo.lastName}
-          </p>
+          </Link>
           <p className="text-[0.73rem] mt-2 font-light">
             {user?.jobTitle}
           </p>

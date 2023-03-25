@@ -44,8 +44,8 @@ const Post: NextPage<PostType> = ({
                 method: "put",
                 path: `/post/toggle-like/${id}`
             }).then(res => {
-                setIsLiked(!isLiked)
                 setLikesCount(res.data?.post?.likes.length)
+                setIsLiked(!isLiked)
             })
         }
     }
