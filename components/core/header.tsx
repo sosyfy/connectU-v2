@@ -33,7 +33,7 @@ const Header = () => {
 
     return (
         <div className="fixed z-40 top-0 left-0 w-full  bg-white md:text-[2.25rem] text-[1.5rem] shadow-[0px_0px_4px_rgba(0,_0,_0,_0.14),_0px_0px_3px_rgba(0,_0,_0,_0.12)] font-roboto">
-            <div className="flex items-center justify-between max-w-6xl px-6 py-4 mx-auto md:justify-between md:px-8 lg:px-0">
+            <div className="flex items-center justify-between max-w-5xl px-6 py-4 mx-auto md:justify-between md:px-8 lg:px-0">
                 <Link href="/" className="flex items-center text-deepskyblue">
                     <b className="inline-block">Connect</b>
                     <b className="ml-1 flex justify-center items-center rounded-md bg-deepskyblue text-white text-center w-[2rem] h-[2rem]">

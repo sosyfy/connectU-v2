@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
       <div className="bg-whitesmoke">
         <Header />
-        <main className="grid max-w-7xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] bg-whitesmoke text-dimgray font-roboto pb-5 px-5 md:px-16 lg:px-0">
+        <main className="grid max-w-5xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] bg-whitesmoke text-dimgray font-roboto pb-5 px-5 md:px-16 lg:px-0">
           <LeftSide />
           {children}
         </main>
