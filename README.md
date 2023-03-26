@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Tech Stack
 
-- Next.js v13
+- Next.js v13.2
 - Tailwind CSS
 
 ## Features

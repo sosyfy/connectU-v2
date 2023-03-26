@@ -10,7 +10,7 @@ import {FaRegEye } from "react-icons/fa"
 interface ForumPostProps {
     postData: ForumPost,
     trimPost?: boolean,
-    key: string,
+    key?: string,
     postLink?: string
 }
 
