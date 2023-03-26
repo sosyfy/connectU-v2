@@ -115,7 +115,7 @@ const Post: NextPage<PostType> = ({
                                     width="24"
                                     height="24"
                                     onClick={() => handleLike(id._id)}
-                                    className="w-[1.5rem] h-[1.5rem] overflow-hidden"
+                                    className="w-[1.5rem] h-[1.5rem] overflow-hidden cursor-pointer"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +126,7 @@ const Post: NextPage<PostType> = ({
                                     width="24"
                                     height="24"
                                     onClick={() => handleLike(id._id)}
-                                    className="w-[1.5rem] h-[1.5rem] overflow-hidden"
+                                    className="w-[1.5rem] h-[1.5rem] overflow-hidden cursor-pointer"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
