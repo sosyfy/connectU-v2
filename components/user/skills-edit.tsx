@@ -95,7 +95,7 @@ export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: Ed
                             />
                         </svg>
                     ) : (
-                        <span> create post</span>
+                        <span> submit</span>
                     )}
 
                 </button>
