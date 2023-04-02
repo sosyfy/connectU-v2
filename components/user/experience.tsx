@@ -34,7 +34,6 @@ export default function Experience({ user, loggedInUser }: Props) {
 
     const handleSubmit = (skillsList: any) => {
         setShowModal(false);
-
     }
     return (
         <section className='pb-2 bg-white rounded-lg shadow border-dimgray'>
@@ -75,8 +74,8 @@ export default function Experience({ user, loggedInUser }: Props) {
 
 
             {showModal &&
-                <div onClick={() => setShowModal(false)} className="fixed inset-0 z-20 flex items-center justify-center mt-20 overflow-hidden outline-none bg-whitesmoke/10 focus:outline-none">
-                    <div className="relative w-4/5 px-4 mt-[12%] py-6 mx-auto bg-gray-300 rounded-lg shadow overflow-y-auto lg:w-2/5">
+                <div className="fixed inset-0 z-20 overflow-y-auto outline-none bg-whitesmoke/90 focus:outline-none">
+                    <div className="px-4 py-6 mx-auto overflow-auto mt-[18%] bg-gray-300 rounded-lg shadow w-fit lg:w-2/5">
                         <ExperienceFormComponent
                             edit={edit}
                             prevExperience={editData}

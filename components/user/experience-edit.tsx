@@ -34,7 +34,7 @@ const ExperienceFormComponent = ({ prevExperience, onSave, edit, loading, closeM
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full mx-auto">
+    <form onSubmit={handleSubmit} className="w-full mx-auto overflow-auto">
       <h2 className="mb-4 text-[1.2rem] font-semibold">Add Experience</h2>
       <div className="flex flex-col mb-2">
         <label className="mb-1 font-bold text-gray-700" htmlFor="school">

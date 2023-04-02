@@ -1,71 +1,54 @@
 "use client"
+import { useState } from 'react';
 
-import { useState } from "react";
 
-interface EditSkillsProps {
-    prevSkills?: string[],
+interface UserProps {
+    prevUserInfo: UserInfo | any,
     onSave: any,
-    edit: boolean,
     loading: boolean,
-    closeModal: any 
+    closeModal: any
 }
+const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal }: UserProps) => {
+  const [userInfo, setUserInfo] = useState<UserInfo>(prevUserInfo);
 
-export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: EditSkillsProps) {
-    const [skills, setSkills] = useState<string[] | any>(edit ? prevSkills : [])
-    const [inputValue, setInputValue] = useState("");
 
-    function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
-        if (event.key === "Enter" || event.key === ",") {
-            event.preventDefault();
-            addSkill(inputValue.trim());
-            setInputValue("");
-        }
-    }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSave(userInfo);
+  };
 
-    function addSkill(skillName: string) {
-        if (skillName && !skills?.includes(skillName)) {
-            setSkills([...skills, skillName]);
-        }
-    }
-
-    function removeSkill(skillName: string) {
-        setSkills(skills.filter((skill: string) => skill !== skillName));
-    }
-
-    return (
-        <div className="grid gap-2">
-                            <h2 className="mb-2 text-[1.2rem] font-semibold">Skills:</h2>
-            <p className="text-xs font-medium text-dimgray"> Separate skills with a comma or click enter </p>
-            <div className="flex flex-wrap items-center gap-2">
-                {skills.map((skillName: string) => ( 
-                    <div
-                        key={skillName}
-                        className='bg-transparent border-2 flex items-center gap-1 border-black/60 shadow-inner text-black/60 px-[2rem] py-1 rounded-full'
-                    >
-                        <span> {skillName}  </span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24"
-                            strokeWidth={1.5} stroke="currentColor"
-                            className="w-4 h-4 cursor-pointer"
-                            onClick={() => removeSkill(skillName)}
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-
-                    </div>
-                ))}
-            </div>
-            <input
-                type="text"
-                placeholder="Add a skill"
-                value={inputValue}
-                onChange={(event) => setInputValue(event.target.value)}
-                onKeyDown={handleKeyPress}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-400"
-            />
-
-            <div className="flex justify-end w-full gap-3">
+  return (
+    <form onSubmit={handleSubmit} className="w-full my-auto overflow-auto">
+      <h2 className="mb-4 text-xl font-semibold">Add Education</h2>
+      <div className="flex flex-col mb-4">
+        <label className="mb-1 font-bold text-gray-700" htmlFor="school">
+          First Name:
+        </label>
+        <input
+          id="school"
+          type="text"
+          value={userInfo.firstName}
+          onChange={(event) =>
+            setUserInfo({ ...userInfo, firstName: event.target.value })
+          }
+          className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+        />
+      </div>
+      <div className="flex flex-col mb-4">
+        <label className="mb-1 font-bold text-gray-700" htmlFor="school">
+          Last Name:
+        </label>
+        <input
+          id="school"
+          type="text"
+          value={userInfo.lastName}
+          onChange={(event) =>
+            setUserInfo({ ...userInfo, lastName: event.target.value })
+          }
+          className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+        />
+      </div>
+      <div className="flex justify-end w-full gap-3">
                 <button
                     onClick={()=>closeModal()}
                     className="flex items-center justify-center whitespace-nowrap rounded-lg mt-5 bg-gray-500 px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
@@ -74,9 +57,8 @@ export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: Ed
                 </button>
                 <button
                     disabled={loading}
-                    type="button"
+                    type="submit"
                     className="flex items-center justify-center whitespace-nowrap rounded-lg mt-5 bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
-                    onClick={(e) => onSave(skills)}
                 >
                     {loading ? (
                         <svg
@@ -97,12 +79,13 @@ export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: Ed
                             />
                         </svg>
                     ) : (
-                        <span> submit</span>
+                        <span> submit </span>
                     )}
 
                 </button>
             </div>
+    </form>
+  );
+};
 
-        </div>
-    );
-}
+export default UserFormComponent;

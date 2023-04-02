@@ -1,18 +1,7 @@
 type Post = {
   _id: string;
   user: string;
-  userInfo: {
-    _id: string;
-    email: string;
-    firstName: string;
-    adminNo: string;
-    lastName: string;
-    emailVerified: boolean;
-    photo?: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+  userInfo: UserInfo
   title: string;
   photo?: string;
   liked: boolean;
@@ -26,18 +15,7 @@ type Post = {
 
 type User = {
   _id: string;
-  userInfo: {
-    _id: string;
-    email: string;
-    firstName: string;
-    adminNo: string;
-    lastName: string;
-    emailVerified: boolean;
-    photo: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+  userInfo: UserInfo
   connections: User[] | [];
   skills: string[];
   bookmarkedPosts: string[] | [];
@@ -57,18 +35,7 @@ type ForumPost = {
   _id: string;
   title: string;
   creator: string;
-  userInfo: {
-    _id: string;
-    email: string;
-    firstName: string;
-    adminNo: string;
-    lastName: string;
-    emailVerified: boolean;
-    photo: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+  userInfo: UserInfo
   description: string;
   likes: string[] | [];
   comments: Comment[] | string[];
@@ -84,18 +51,7 @@ type CommentType = {
   _id: string;
   post: string;
   user: string;
-  userInfo: {
-    _id: string;
-    email: string;
-    firstName: string;
-    adminNo: string;
-    lastName: string;
-    emailVerified: boolean;
-    photo: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  };
+  userInfo: UserInfo
   commentText: string;
   likes: string[] | [];
   createdAt: string;
@@ -120,3 +76,16 @@ type ExperienceData =   {
   _id: string
 }
 
+
+type UserInfo =  {
+  _id: string;
+  email: string;
+  firstName: string;
+  adminNo: string;
+  lastName: string;
+  emailVerified: boolean;
+  photo: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};

@@ -3,7 +3,7 @@
 import useAxios from "@/lib/hooks/useAxios";
 import useUserStore from "@/lib/state/store";
 import { useState } from "react";
-import LeftSide from "../core/left-side";
+import UserFormComponent from "./user-info-edit";
 
 
 type TopBarProps = {
@@ -26,7 +26,9 @@ export default function TopBar({
   const [loading, setLoading] = useState(false);
   const updateUser = useUserStore((state) => state.update)
   const [connections, setConnections] = useState<User | any>(loggedInUser?.connections);
-
+  const [showModal, setShowModal] = useState(false);
+  const [editData, setEditData] = useState<UserInfo>(user?.userInfo)
+  
   const request = useAxios(token);
 
 
@@ -47,6 +49,16 @@ export default function TopBar({
       })
     }
   }
+
+
+  const openEditModal = (data: UserInfo) => {
+    setShowModal(true);
+    setEditData(data)
+}
+ 
+const handleSubmit =  ( userData: UserInfo) => {
+  
+};
   return (
     <>
       <div className="grid h-[10.5rem] w-full bg-zinc-50 drop-shadow-[0_4px_8px_rgba(0,172,255,0.2)] rounded-t-md grid-cols-12 gap-4 lg:gap-16 lg:px-16 pt-3 px-4">
@@ -78,7 +90,7 @@ export default function TopBar({
               )}
 
               {loggedInUser?._id === user?._id && (
-                <button className="grid p-2 rounded-full focus:outline-none hover:bg-zinc-200 place-content-center">
+                <button  onClick={() => openEditModal(user.userInfo)} className="grid p-2 rounded-full focus:outline-none hover:bg-zinc-200 place-content-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                   </svg>
@@ -101,6 +113,19 @@ export default function TopBar({
           </div>
         </div>
       </div>
+
+      {showModal &&
+                <div className="fixed inset-0 z-20 overflow-y-auto outline-none bg-whitesmoke/90 focus:outline-none">
+                    <div className="px-4 py-6 mx-auto z-40 overflow-auto mt-[18%] bg-gray-300 rounded-lg shadow w-fit lg:w-2/5">
+                        <UserFormComponent
+                            prevUserInfo={editData}
+                            loading={loading}
+                            onSave={handleSubmit}
+                            closeModal={() => setShowModal(false)}
+                        />
+                    </div>
+                </div>
+          }
     </>
   )
 }
