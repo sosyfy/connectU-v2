@@ -23,7 +23,7 @@ export default async function Home() {
     <>
       <div className="relative w-full h-screen bg-whitesmoke">
         <Header />
-        <main className="grid max-w-5xl grid-cols-12 gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
+        <main className="grid max-w-5xl grid-cols-12 bg-whitesmoke gap-x-4 mx-auto pt-[6.5rem] pb-5 px-5 md:px-8 lg:px-0">
           <LeftSide />
           <Suspense fallback={<HomeLoadingSkeleton />}>
             <TimelineContainer token={token} initialPosts={response?.data} />
