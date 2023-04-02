@@ -33,6 +33,7 @@ const EducationFormComponent = ({ prevEducation, onSave, edit, loading, closeMod
         <input
           id="school"
           type="text"
+          required
           value={education.schoolName}
           onChange={(event) =>
             setEducation({ ...education, schoolName: event.target.value })
@@ -48,6 +49,7 @@ const EducationFormComponent = ({ prevEducation, onSave, edit, loading, closeMod
         <input
           id="degree"
           type="text"
+          required
           value={education.course}
           onChange={(event) =>
             setEducation({ ...education, course: event.target.value })
@@ -65,7 +67,7 @@ const EducationFormComponent = ({ prevEducation, onSave, edit, loading, closeMod
           style={{ resize: "vertical" }}
           value={education.summary}
           onChange={(event) =>
-            setEducation({ ...education, course: event.target.value })
+            setEducation({ ...education, summary: event.target.value })
           }
           className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
         />

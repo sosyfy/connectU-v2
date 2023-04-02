@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface EditSkillsProps {
-    prevSkills?: string[],
+    prevSkills: string[],
     onSave: any,
     edit: boolean,
     loading: boolean,
@@ -11,7 +11,7 @@ interface EditSkillsProps {
 }
 
 export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: EditSkillsProps) {
-    const [skills, setSkills] = useState<string[] | any>(edit ? prevSkills : [])
+    const [skills, setSkills] = useState<string[]>(edit ? prevSkills : [])
     const [inputValue, setInputValue] = useState("");
 
     function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -76,7 +76,7 @@ export function EditSkills({ prevSkills, onSave, edit, loading, closeModal }: Ed
                     disabled={loading}
                     type="button"
                     className="flex items-center justify-center whitespace-nowrap rounded-lg mt-5 bg-deepskyblue px-6 pt-2.5 pb-2 text-xs font-semibold uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200 motion-reduce:transition-none"
-                    onClick={(e) => onSave(skills)}
+                    onClick={(e) => onSave(edit ? skills : [...prevSkills, ...skills])}
                 >
                     {loading ? (
                         <svg

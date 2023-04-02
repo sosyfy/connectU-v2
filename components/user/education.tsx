@@ -1,37 +1,77 @@
 "use client";
 
 import { useState } from "react";
+import useAxios from "@/lib/hooks/useAxios";
+import useUserStore from "@/lib/state/store";
 import EducationFormComponent from "./education-edit";
 
 type Props = {
     user: User,
     loggedInUser: User | undefined
+    token: string 
 }
 
-export default function Education({ user, loggedInUser }: Props) {
+export default function Education({ user, loggedInUser, token }: Props) {
     const [showModal, setShowModal] = useState(false);
+    const [ education , setEducation ] = useState(user.education)
     const [edit, setEdit] = useState(false);
+    const [editIndex, setEditIndex] = useState(0);
     const [loading, setLoading] = useState(false);
     const [editData, setEditData] = useState<EducationData>({
-    schoolName: "",
-    course: "",
-    summary: "",
-    _id: ""
-})
+        schoolName: "",
+        course: "",
+        summary: "",
+        _id: ""
+    })
 
-    const openEditModal = (data: EducationData) => {
+
+const updateUser = useUserStore((state) => state.update)
+
+const request = useAxios(token);
+
+    const openEditModal = (index : number ) => {
         setShowModal(true);
         setEdit(true);
-        setEditData(data)
+        setEditIndex(index)
+        setEditData(education[index])
     }
+
+
     const openCreateModal = () => {
         setShowModal(true);
         setEdit(false);
     }
-
-    const handleSubmit = (skillsList: any) => {
-        setShowModal(false);
-    }
+ 
+    const handleSubmit =  ( list: any) => {
+        let editData 
+        if(!edit) {
+          delete(list._id)
+          editData = [list, ...education]
+        } else {
+        const data = education.filter(( ed, index)=> index !== editIndex )
+        data.push(list)
+        editData = [...data ] 
+        }
+        
+        if (token !== undefined) {
+          setLoading(true);
+         
+          request({
+            method: "post",
+            path: `/user/update-user/${user._id}`,
+            pathData: JSON.stringify({...user, education: editData })
+          }).then((response) => {
+            setEducation(response.data.education);
+            setShowModal(false);
+            updateUser(response.data);
+            setLoading(false);
+            
+          }).catch((error) => {
+            console.log(error);
+            setLoading(false)
+          })
+        }
+      };
     
     return (
         <section className='pb-2 bg-white rounded-lg shadow border-dimgray'>
@@ -52,13 +92,13 @@ export default function Education({ user, loggedInUser }: Props) {
                 </div>
             </div>
             {/* things    */}
-            {user.education?.map(edu => (
+            { education.map(( edu, index ) => (
                 <div className="grid p-[1.2rem] mt-2 relative" key={edu._id}>
                     <h1 className='text-[1.2rem] text-textblack-200/70 font-semibold tracking-loose'>{edu.schoolName}</h1>
                     <h2 className='text-[1rem]  font-medium mt-1 text-textblack-200'>{edu.course}</h2>
                     <p className='mt-3 text-dimgray text-[1.08rem] font-normal'> {edu.summary}</p>
                     {loggedInUser?._id === user?._id && (
-                        <button onClick={() => openEditModal(edu)} className="absolute grid p-2 rounded-full top-2 right-5 focus:outline-none hover:bg-zinc-200 place-content-center">
+                        <button onClick={() => openEditModal(index)} className="absolute grid p-2 rounded-full top-2 right-5 focus:outline-none hover:bg-zinc-200 place-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                             </svg>

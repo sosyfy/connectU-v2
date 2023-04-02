@@ -1,19 +1,26 @@
 "use client"
 
+import useAxios from "@/lib/hooks/useAxios"
+import useUserStore from "@/lib/state/store"
 import { useState } from "react"
 import { EditSkills } from "./skills-edit"
 
 type Props = {
     user: User,
-    loggedInUser: User | undefined
+    loggedInUser: User
+    token: string 
 }
 
-export default function Skills({ user, loggedInUser }: Props) {
+export default function Skills({ user, loggedInUser , token }: Props) {
     const [skills, setSkills] = useState<string[]>(user.skills)
     const [showModal, setShowModal] = useState(false);
     const [edit, setEdit] = useState(false);
     const [loading, setLoading] = useState(false);
+    const updateUser = useUserStore((state) => state.update)
 
+    const request = useAxios(token);
+
+    
     const openEditModal = () => {
         setShowModal(true);
         setEdit(true);
@@ -22,11 +29,27 @@ export default function Skills({ user, loggedInUser }: Props) {
         setShowModal(true);
         setEdit(false);
     }
-
-    const handleSubmit = (skillsList: any)=>{
-        setShowModal(false); 
-
-    }
+    const handleSubmit =  ( skillsList: any) => {
+        
+        if (token !== undefined) {
+          setLoading(true);
+         
+          request({
+            method: "post",
+            path: `/user/update-user/${user._id}`,
+            pathData: JSON.stringify({...user, skills: skillsList, _id : undefined })
+          }).then((response) => {
+            setSkills(response.data.skills);
+            setShowModal(false);
+            updateUser(response.data);
+            setLoading(false);
+            
+          }).catch((error) => {
+            console.log(error);
+            setLoading(false)
+          })
+        }
+      };
 
     return (
         <section className='pb-2 bg-white rounded-lg shadow border-dimgray'>
@@ -68,7 +91,7 @@ export default function Skills({ user, loggedInUser }: Props) {
                             
                             <EditSkills
                                 edit={edit}
-                                prevSkills={skills}
+                                prevSkills={loggedInUser.skills}
                                 loading={loading}
                                 onSave={handleSubmit}
                                 closeModal={()=> setShowModal(false)}

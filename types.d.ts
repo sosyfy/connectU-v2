@@ -71,8 +71,6 @@ type ExperienceData =   {
   company: string,
   summary:  string,
   location:  string,
-  startDate:  string,
-  endDate:  string,
   _id: string
 }
 

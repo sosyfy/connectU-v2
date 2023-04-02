@@ -28,7 +28,7 @@ const ExperienceFormComponent = ({ prevExperience, onSave, edit, loading, closeM
   });
 
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSave(experience);
   };
@@ -43,6 +43,7 @@ const ExperienceFormComponent = ({ prevExperience, onSave, edit, loading, closeM
         <input
           id="position"
           type="text"
+          required
           value={experience.position}
           onChange={(event) =>
             setExperience({ ...experience, position: event.target.value })
@@ -57,6 +58,7 @@ const ExperienceFormComponent = ({ prevExperience, onSave, edit, loading, closeM
         <input
           id="company"
           type="text"
+          required
           value={experience.company}
           onChange={(event) =>
             setExperience({ ...experience, company: event.target.value })
@@ -92,34 +94,6 @@ const ExperienceFormComponent = ({ prevExperience, onSave, edit, loading, closeM
             setExperience({ ...experience, summary: event.target.value })
           }
           className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
-        />
-      </div>
-      <div className="flex flex-col mb-2">
-        <label className="mb-1 font-bold text-gray-700" htmlFor="startDate">
-          Start Date:
-        </label>
-        <input
-          id="startDate"
-          type="date"
-          value={experience.startDate}
-          onChange={(event) =>
-            setExperience({ ...experience, startDate: event.target.value })
-          }
-          className="px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-        />
-      </div>
-      <div className="flex flex-col mb-2">
-        <label className="mb-1 font-bold text-gray-700" htmlFor="endDate">
-          End Date:
-        </label>
-        <input
-          id="endDate"
-          type="date"
-          value={experience.endDate}
-          onChange={(event) =>
-            setExperience({ ...experience, endDate: event.target.value })
-          }
-          className="px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="flex justify-end w-full gap-3">

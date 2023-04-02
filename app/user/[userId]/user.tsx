@@ -79,10 +79,10 @@ export default function User({
                 {activeTab == 3 && (
                     <div className="pt-8">
                         <div className="grid gap-6">
-                            <About user={user} loggedInUser={loggedInUser} />
-                            <Experience user={user} loggedInUser={loggedInUser} />
-                            <Education user={user} loggedInUser={loggedInUser} />
-                            <Skills user={user} loggedInUser={loggedInUser} />
+                            <About user={user} loggedInUser={loggedInUser} token={token} />
+                            <Experience user={user} loggedInUser={loggedInUser} token={token} />
+                            <Education user={user} loggedInUser={loggedInUser} token={token} />
+                            <Skills user={user} loggedInUser={loggedInUser} token={token} />
                         </div>
                     </div>
                 )}

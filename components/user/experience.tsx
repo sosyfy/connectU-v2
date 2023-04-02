@@ -1,40 +1,74 @@
 "use client";
 
 import { useState } from "react";
+import useAxios from "@/lib/hooks/useAxios";
+import useUserStore from "@/lib/state/store";
 import ExperienceFormComponent from "./experience-edit";
 
 type Props = {
     user: User,
     loggedInUser: User | undefined
+    token: string 
 }
 
-export default function Experience({ user, loggedInUser }: Props) {
+export default function Experience({ user, loggedInUser, token  }: Props) {
     const [showModal, setShowModal] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [ experience , setExperience ] = useState(user.experience)
+    const [editIndex, setEditIndex] = useState(0);
     const [loading, setLoading] = useState(false);
     const [editData, setEditData] = useState<ExperienceData>({
         position: '',
         company: '',
         summary: '',
-        startDate: '',
-        endDate: '',
         location: '',
         _id: ''
     })
+    const updateUser = useUserStore((state) => state.update)
+    const request = useAxios(token);
 
-    const openEditModal = (data: ExperienceData) => {
+    
+    const openEditModal = (index : number) => {
         setShowModal(true);
         setEdit(true);
-        setEditData(data)
+        setEditIndex(index)
+        setEditData(experience[index])
     }
     const openCreateModal = () => {
         setShowModal(true);
         setEdit(false);
     }
 
-    const handleSubmit = (skillsList: any) => {
-        setShowModal(false);
-    }
+    const handleSubmit =  ( list: any) => {
+        let editData 
+        if(!edit) {
+          delete(list._id)
+          editData = [list, ...experience]
+        } else {
+        const data = experience.filter(( ed, index)=> index !== editIndex )
+        data.push(list)
+        editData = [...data ] 
+        }
+        
+        if (token !== undefined) {
+          setLoading(true);
+         
+          request({
+            method: "post",
+            path: `/user/update-user/${user._id}`,
+            pathData: JSON.stringify({...user, experience: editData})
+          }).then((response) => {
+            setExperience(response.data.experience);
+            setShowModal(false);
+            updateUser(response.data);
+            setLoading(false);
+            
+          }).catch((error) => {
+            console.log(error);
+            setLoading(false)
+          })
+        }
+      };
     return (
         <section className='pb-2 bg-white rounded-lg shadow border-dimgray'>
             {/* top part  */}
@@ -54,15 +88,14 @@ export default function Experience({ user, loggedInUser }: Props) {
                 </div>
             </div>
             {/* things    */}
-            {user.experience?.map(exp => (
+            {experience?.map( (exp, index) => (
                 <div className="grid p-[1.2rem] relative" key={exp._id}>
                     <h1 className='text-[1.2rem] text-textblack-200/70 font-semibold tracking-loose'>{exp.position}</h1>
-                    <h2 className='text-[1rem]  font-medium mt-1 text-textblack-200'>{exp.company}</h2>
-                    <p className='text-[0.88rem] mt-1 font-normal tracking-looser'> <span>{exp.startDate}</span> - <span>{exp.endDate}</span>  <span>20 months</span> </p>
+                    <h4 className='text-[1rem]  font-medium mt-1 text-textblack-200'>{exp.company}</h4>
                     <p className='text-[0.97rem] mt-1 font-normal tracking-looser'> {exp.location} </p>
                     <p className='mt-3 text-dimgray text-[1.08rem] font-normal'>{exp.summary}</p>
                     {loggedInUser?._id === user?._id && (
-                        <button onClick={() => openEditModal(exp)} className="absolute grid p-2 rounded-full top-2 right-5 focus:outline-none hover:bg-zinc-200 place-content-center">
+                        <button onClick={() => openEditModal(index)} className="absolute grid p-2 rounded-full top-2 right-5 focus:outline-none hover:bg-zinc-200 place-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                             </svg>
