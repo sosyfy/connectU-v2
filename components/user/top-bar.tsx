@@ -129,8 +129,8 @@ const handleSubmit =  ( userData: any) => {
       </div>
       {/* stats */}
       <div className="flex justify-end h-[4rem] box-border w-full">
-        <div className="flex items-center justify-around lg:justify-start lg:gap-20 md:w-[55%] w-[45%] border-b-2 stats border-dimgray/20 fot-roboto text-dimgray/90">
-          <div className="grid gap-1 text-center">
+        <div className="flex items-center justify-around lg:justify-start lg:gap-20 md:w-[55%] w-[45%] border-b-2 stats border-dimgray/20 font-roboto text-dimgray/90">
+          <div className="grid gap-1 ml-1 text-center">
             <h3 className="text-[0.85rem] tracking-tight">connections</h3>
             <p className="font-bold text-[1rem]">{connectionNo}</p>
           </div>

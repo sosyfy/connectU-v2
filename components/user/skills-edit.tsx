@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface EditSkillsProps {
-    prevSkills: string[],
+    prevSkills: string[] | any ,
     onSave: any,
     edit: boolean,
     loading: boolean,

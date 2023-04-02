@@ -7,7 +7,7 @@ import { EditSkills } from "./skills-edit"
 
 type Props = {
     user: User,
-    loggedInUser: User
+    loggedInUser: User | undefined 
     token: string 
 }
 
@@ -91,7 +91,7 @@ export default function Skills({ user, loggedInUser , token }: Props) {
                             
                             <EditSkills
                                 edit={edit}
-                                prevSkills={loggedInUser.skills}
+                                prevSkills={loggedInUser?.skills}
                                 loading={loading}
                                 onSave={handleSubmit}
                                 closeModal={()=> setShowModal(false)}

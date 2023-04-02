@@ -112,7 +112,7 @@ export default function Filter({
                                                 onChange={(e) => setTitle(e.target.value)}
                                                 required
                                                 placeholder="Title ... "
-                                                className="rounded-3xs text-[0.9rem] bg-whitesmoke font-roboto font-medium box-border w-full flex flex-row md:py-[0.8rem] py-[1rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+                                                className="rounded-3xs text-[0.9rem] bg-whitesmoke font-roboto font-medium box-border w-full flex flex-row md:py-[0.8rem] py-[0.6rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
                                             />
                                         </div>
                                         <p className="relative leading-[125%] font-roboto font-semibold mb-3 text-[0.9rem]">
@@ -126,21 +126,16 @@ export default function Filter({
                                                 theme="snow"
                                                 modules={{
                                                     toolbar: [
+                                                        [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+                                                        
                                                         ["bold", "italic", "underline", "strike"], // toggled buttons
                                                         ["blockquote", "code-block"],
 
                                                         [{ header: 1 }, { header: 2 }], // custom button values
                                                         [{ list: "ordered" }, { list: "bullet" }],
-                                                        [{ script: "sub" }, { script: "super" }], // superscript/subscript
                                                         [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
 
-                                                        [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-
                                                         [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-                                                        [{ font: [] }],
-                                                        [{ align: [] }],
-
-                                                        ["clean"], // remove formatting button
                                                     ],
                                                 }}
                                                 style={{ width: "inherit", fontWeight: 500 }}

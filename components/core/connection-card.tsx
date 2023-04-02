@@ -7,7 +7,7 @@ import Link from "next/link";
 import useUserStore from "@/lib/state/store";
 
 type CardProps = {
-  cardData: User | any,
+  cardData: User,
 };
 
 const ConnectionCard = ({
@@ -52,7 +52,8 @@ const ConnectionCard = ({
         <h2 className="text-lg font-semibold">
           {cardData.userInfo.firstName} {cardData.userInfo.lastName}
         </h2>
-        <p className="text-dimgray text-[0.8rem] hidden">{cardData.email}</p>
+        <p className="text-dimgray text-[0.8rem]">{cardData?.jobTitle}</p>
+        <p className="text-dimgray text-[0.8rem]">{cardData?.userInfo?.adminNo}</p>
       </div>
       <div className="flex justify-around px-3 py-4">
         <button

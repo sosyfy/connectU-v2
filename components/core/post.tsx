@@ -98,7 +98,7 @@ const Post: NextPage<PostType> = ({
                         <>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                className="w-full"
+                                className="w-full max-h-[450px]"
                                 alt="post image"
                                 src={image}
                             />
