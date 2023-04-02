@@ -22,12 +22,14 @@ export default function TopBar({
   token
 }: TopBarProps) {
   const date = new Date(user?.createdAt);
+  
   const formattedDate = date.toLocaleDateString('en-US');
   const [loading, setLoading] = useState(false);
   const updateUser = useUserStore((state) => state.update)
   const [connections, setConnections] = useState<User | any>(loggedInUser?.connections);
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState<UserInfo>(user?.userInfo)
+  const [editableUser, setEditableUser] = useState<User>(user)
   
   const request = useAxios(token);
 
@@ -56,8 +58,33 @@ export default function TopBar({
     setEditData(data)
 }
  
-const handleSubmit =  ( userData: UserInfo) => {
-  
+const handleSubmit =  ( userData: any) => {
+  if (token !== undefined) {
+    setLoading(true);
+   
+    request({
+      method: "post",
+      path: `/user/update-user/${user._id}`,
+      pathData: JSON.stringify({...user, ...userData , _id : undefined })
+    }).then(() => {
+      request({
+        method: "put",
+        path: `/auth/update-user/${user.userInfo._id}`,
+        pathData: JSON.stringify({...user.userInfo, ...userData})
+      }).then((response) => {
+        setEditableUser(response.data);
+        setShowModal(false);
+        updateUser(response.data);
+        setLoading(false);
+      })
+      
+    }).catch((error) => {
+      console.log(error);
+      setLoading(false)
+    })
+    
+   
+  }
 };
   return (
     <>
@@ -69,10 +96,10 @@ const handleSubmit =  ( userData: UserInfo) => {
         </div>
         <div className="col-span-6 md:col-span-7 lg:col-span-8 font-roboto">
           <div className="grid text-dimgray">
-            <h2 className="text-[1.4rem] font-medium capitalize">{user?.userInfo.firstName} {user?.userInfo.lastName}</h2>
-            <h3 className="text-[0.95rem] mt-1">{user?.jobTitle}</h3>
+            <h2 className="text-[1.4rem] font-medium capitalize">{editableUser?.userInfo.firstName} {editableUser?.userInfo.lastName}</h2>
+            <h3 className="text-[0.95rem] mt-1">{editableUser?.jobTitle}</h3>
             <p className="text-[0.75rem] mt-2">member since {formattedDate}</p>
-            <h2 className="text-[0.75rem] mt-2">Class of 2019</h2>
+            <h2 className="text-[0.75rem] mt-2">{editableUser.location}</h2>
             <div className="flex gap-5 mt-3">
 
               {loggedInUser?._id !== user?._id && (
@@ -121,6 +148,8 @@ const handleSubmit =  ( userData: UserInfo) => {
                             prevUserInfo={editData}
                             loading={loading}
                             onSave={handleSubmit}
+                            job={user.jobTitle}
+                            location={user.location}
                             closeModal={() => setShowModal(false)}
                         />
                     </div>

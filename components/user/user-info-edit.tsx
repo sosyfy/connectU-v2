@@ -6,22 +6,25 @@ interface UserProps {
     prevUserInfo: UserInfo | any,
     onSave: any,
     loading: boolean,
-    closeModal: any
+    closeModal: any,
+    job?: string,
+    location: string 
 }
-const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal }: UserProps) => {
+const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal , job, location }: UserProps) => {
   const [userInfo, setUserInfo] = useState<UserInfo>(prevUserInfo);
-
+  const [jobTitle , setJobTitle] = useState(job)
+  const [ newLocation , setNewLocation ] = useState(location)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSave(userInfo);
+    onSave({...userInfo, jobTitle, location: newLocation });
   };
 
   return (
     <form onSubmit={handleSubmit} className="w-full my-auto overflow-auto">
       <h2 className="mb-4 text-xl font-semibold">Add Education</h2>
       <div className="flex flex-col mb-4">
-        <label className="mb-1 font-bold text-gray-700" htmlFor="school">
+        <label className="mb-1 text-gray-700" htmlFor="school">
           First Name:
         </label>
         <input
@@ -35,7 +38,7 @@ const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal }: UserPr
         />
       </div>
       <div className="flex flex-col mb-4">
-        <label className="mb-1 font-bold text-gray-700" htmlFor="school">
+        <label className="mb-1 text-gray-700" htmlFor="school">
           Last Name:
         </label>
         <input
@@ -44,6 +47,48 @@ const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal }: UserPr
           value={userInfo.lastName}
           onChange={(event) =>
             setUserInfo({ ...userInfo, lastName: event.target.value })
+          }
+          className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+        />
+      </div>
+      <div className="flex flex-col mb-4">
+        <label className="mb-1text-gray-700" htmlFor="school">
+          Admission Number:
+        </label>
+        <input
+          id="school"
+          type="text"
+          value={userInfo.adminNo}
+          onChange={(event) =>
+            setUserInfo({ ...userInfo, adminNo: event.target.value })
+          }
+          className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+        />
+      </div>
+      <div className="flex flex-col mb-4">
+        <label className="mb-1 text-gray-700" htmlFor="school">
+          Job Title:
+        </label>
+        <input
+          id="school"
+          type="text"
+          value={jobTitle}
+          onChange={(event) =>
+            setJobTitle(event.target.value)
+          }
+          className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
+        />
+      </div>
+      <div className="flex flex-col mb-4">
+        <label className="mb-1 text-gray-700" htmlFor="school">
+          Location:
+        </label>
+        <input
+          id="school"
+          type="text"
+          value={newLocation}
+          onChange={(event) =>
+            setNewLocation(event.target.value)
           }
           className="rounded-3xs bg-white font-serif font-medium box-border w-full flex flex-row  py-[0.9rem] px-[1rem] items-center justify-end border-[1px] border-solid border-gainsboro-200"
         />
@@ -83,7 +128,7 @@ const UserFormComponent = ({ prevUserInfo, onSave, loading, closeModal }: UserPr
                     )}
 
                 </button>
-            </div>
+    </div>
     </form>
   );
 };
