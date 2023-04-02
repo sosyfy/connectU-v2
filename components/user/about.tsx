@@ -32,11 +32,10 @@ export default function About({ user, loggedInUser , token  }: Props) {
         
             if (token !== undefined) {
               setLoading(true);
-             
               request({
                 method: "post",
                 path: `/user/update-user/${user._id}`,
-                pathData: JSON.stringify({...user, about: aboutData, _id : undefined })
+                pathData: JSON.stringify({...user, about: aboutData})
               }).then((response) => {
                 setAboutData(response.data.about);
                 setShowModal(false);
@@ -70,7 +69,7 @@ export default function About({ user, loggedInUser , token  }: Props) {
             {/* things    */}
             <div className="grid p-[1.2rem] relative">
                 <div className="">
-                    {user?.about && <p className='mt-3 text-dimgray text-[1.08rem] font-normal'> {user?.about} </p>}
+                    <p className='mt-3 text-dimgray text-[1.08rem] font-normal'> {aboutData} </p>
                 </div>
             </div>
 
