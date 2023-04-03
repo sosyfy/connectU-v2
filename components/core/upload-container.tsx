@@ -45,27 +45,6 @@ const WriteNewPost = ({ getPosts }: any) => {
         })
       }
 
-      if (token !== undefined && photo === undefined) {
-        setLoading(true);
-        await request({
-          method: "post",
-          path: "/post",
-          pathData: JSON.stringify({ title, macho: "sdfdgf" })
-
-        }).then((response) => {
-          console.log(response.data);
-          setLoading(false);
-          getPosts();
-          setShow(false);
-          setTitle('');
-        }).catch((error) => {
-          console.log(error);
-          setLoading(false);
-          setShow(false);
-          setTitle('');
-        })
-      }
-
     } catch (error) {
       console.error(error)
     }
